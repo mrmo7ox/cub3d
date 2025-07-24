@@ -1,0 +1,6 @@
+files=$(ls -1 ./maps/)
+
+while IFS= read -r line; do
+    echo "testing "./maps/$line
+    ./cub "./maps/$line"
+done <<< "$files"

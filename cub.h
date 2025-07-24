@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:58:13 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/21 19:47:51 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/07/24 10:34:14 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,20 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#define DEBUG true
+#define TITLE "cub3d"
+#define	TSIZE 50
+#define WIDTH 800 
+#define HEIGHT 800
+
+enum {
+	ON_KEYDOWN = 2,
+	ON_KEYUP = 3,
+	ON_MOUSEDOWN = 4,
+	ON_MOUSEUP = 5,
+	ON_MOUSEMOVE = 6,
+	ON_EXPOSE = 12,
+	ON_DESTROY = 17
+};
 
 typedef struct  s_gc
 {
@@ -46,8 +59,30 @@ typedef	struct	s_clrs
 typedef	struct	s_map
 {
 	char	**content;
+	int		width;
+	int		height;
 	char	player;
 }			t_map;
+
+typedef	struct	s_player
+{
+	int	x;
+	int	y;
+}			t_plr;
+
+
+typedef struct	s_vars {
+	void	*mlx;
+	void	*win;
+}				t_vars;
+
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
 
 typedef struct  s_main
 {
@@ -56,6 +91,10 @@ typedef struct  s_main
 	t_clrs	*colors;
 	t_txtrs	*txtrs;
 	t_map	*map;
+	t_data	*img;
+	t_plr	*p;
+	t_plr	*a;
+	t_vars	*vars;
 }			t_main;
 
 
@@ -65,6 +104,16 @@ bool	txtrs_clrs(t_main *main);
 bool	chckadd_clrs(char **splited, t_main *main);
 int		parse_color(char *color, t_main *main);
 bool    parsemap(int last, t_main *main);
+
+// exec
+void	run(t_main *main);
+void	draw(t_main *main);
+
+
+//mxl hooks and img
+int		close_win(t_main *main);
+int		key_hook(int keycode, t_main *main);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 
 
@@ -99,5 +148,6 @@ bool	check_up(char **map, int x, int y);
 bool	check_down(char **map, int x, int y);
 bool	check_left(char **map, int x, int y);
 bool	check_right(char **map, int x, int y);
+char	*ft_rmlstspmap(char *str, t_main *main);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 16:37:20 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/21 19:55:53 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/07/22 17:45:57 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	end_map(t_main *main)
 	int	i;
 
 	i = ft_dplen(main->fcnt) - 1;
+
 	while (i > 0 && !ft_rmlstsp(main->fcnt[i], main))
 		i--;
 	return (i);
@@ -36,7 +37,7 @@ bool	getmap(int last,t_main *main)
 		return (false);
 	while(end >= last)
 	{
-		main->map->content[i] = ft_rmlstsp(main->fcnt[last], main);
+		main->map->content[i] = ft_rmlstspmap(main->fcnt[last], main);
 		i++;
 		last++;
 	}
@@ -49,14 +50,13 @@ bool validchr(char c, t_main *main) {
 		return (true);
 	if(c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
+		if(main->map->player)
+			return (false);
 		main->map->player = c;
 		return (true);
 	}
     return (false);
 }
-
-
-
 
 bool	vld_map(t_main *main)
 {
@@ -75,7 +75,6 @@ bool	vld_map(t_main *main)
 				return (false);
 			if(map[x][y] == '0')
 			{
-				printf("%c", map[x][y]);
 				if(!check_up(map, x, y))
 					return (false);
 				if(!check_down(map, x, y))
@@ -85,7 +84,6 @@ bool	vld_map(t_main *main)
 				if(!check_right(map, x, y))
 					return (false);
 			}
-			printf("\n");
 			y++;
 		}
 		x++;
@@ -100,12 +98,16 @@ bool	init_map(int last,t_main *main)
 		return (false);
 	if (!getmap(last, main))
 		return (false);
+	for (int i = 0; main->map->content[i]; i++)
+	{
+		printf("%s\n", main->map->content[i]);	
+	}
 	if (!main->map->content)
 		return (false);
 	if (!vld_map(main))
 		return (false);
-	// if (!main->map->player)
-	// 	return (false);
+	if (!main->map->player)
+		return (false);
 	return (true);
 }
 

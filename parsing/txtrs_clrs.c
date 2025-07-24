@@ -6,11 +6,25 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 10:37:20 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/20 19:57:58 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/07/22 12:54:02 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
+
+bool	txturs_test(char *path, char **txtvar)
+{
+	int	fd;
+
+	if(*txtvar)
+		return (false);
+	fd = open(path, O_RDONLY);
+	if(fd == -1)
+		return (false);
+	*txtvar = path;
+	close(fd);
+	return (true);
+}
 
 bool	chckadd_txtrs(char **splited, t_main *main)
 {
@@ -18,26 +32,15 @@ bool	chckadd_txtrs(char **splited, t_main *main)
 	{	
 		if(!main->txtrs || ft_dplen(splited) != 2)
 			return (false);
-		if(!ft_strcmp("SO", splited[0]))
-		{
-			main->txtrs->so = splited[1];
-			return (true);
-		}
-		if(!ft_strcmp("NO", splited[0]))
-		{
-			main->txtrs->no = splited[1];
-			return (true);
-		}
-		if(!ft_strcmp("WE", splited[0]))
-		{
-			main->txtrs->we = splited[1];
-			return (true);
-		}
-		if(!ft_strcmp("EA", splited[0]))
-		{
-			main->txtrs->ea = splited[1];
-			return (true);
-		}
+		else if(!ft_strcmp("SO", splited[0]))
+			return (txturs_test(splited[1], &main->txtrs->so));
+		else if(!ft_strcmp("NO", splited[0]))
+			return (txturs_test(splited[1], &main->txtrs->no));
+		else if(!ft_strcmp("WE", splited[0]))
+			return (txturs_test(splited[1], &main->txtrs->we));
+		else if(!ft_strcmp("EA", splited[0]))
+			return (txturs_test(splited[1], &main->txtrs->ea));
+		
 	}
 	return (false);
 }
@@ -47,7 +50,7 @@ bool	clrs_txtrs_done(t_main *main)
 {
 	if (main->txtrs->so && main->txtrs->ea && main->txtrs->no && main->txtrs->we)
 		main->txtrs->done = (true);
-	if (main->colors->c && main->colors->f)
+	if (main->colors->c != -69 && main->colors->f != -69)
 		main->colors->done = (true);
 	if(main->colors->done && main->txtrs->done)
 		return (true);
@@ -57,7 +60,10 @@ bool	clrs_txtrs_done(t_main *main)
 bool	check_add(char **splited,t_main *main)
 {
 	if (!chckadd_clrs(splited, main) && !chckadd_txtrs(splited, main))
-		return (false); 
+	{
+		ft_putstr_fd("Error\nInvalid Colors or Textures\n", 2);
+		return (false);
+	}
 	return (true);
 }
 
@@ -69,8 +75,8 @@ bool	txt_clrs_init(t_main *main)
 	main->colors = ft_malloc(main, sizeof(t_clrs));
 	if(!main->colors)
 		return(false);
-	main->colors->c = 0;
-	main->colors->f = 0;
+	main->colors->c = -69;
+	main->colors->f = -69;
 	main->txtrs->ea = 0;
 	main->txtrs->no = 0;
 	main->txtrs->so = 0;
@@ -105,21 +111,11 @@ bool	txtrs_clrs(t_main *main)
 		{
 			if(!parsemap(i, main))
 			{
-				printf("invalid map\n");
+				ft_putstr_fd("Error\nInvalid Map\n", 2);
 				return (false);
 			}
-			printf("{OK} valid map\n");
 			return (true);
 		}
-		// printf("=====================\n");
-		// printf("%s\n", main->txtrs->ea);
-		// printf("%s\n", main->txtrs->so);
-		// printf("%s\n", main->txtrs->we);
-		// printf("%s\n", main->txtrs->no);
-		// printf("%d\n", main->colors->c);
-		// printf("%d\n", main->colors->f);
-		// printf("%d\n", main->colors->done);
-		// printf("%d\n", main->txtrs->done);
 		i++;
 	}
 	return (true);

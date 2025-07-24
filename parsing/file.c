@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 17:03:57 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/20 10:38:36 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/07/22 11:50:48 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char *formating(char *path, t_main *main)
 		path = ft_substr(path, start, (end - start) + 1, main);
 		if (!path)
 		{
-			ft_putstr_fd("[KO][31] Formating Malloc Failed\n", 2);
+			ft_putstr_fd("Error\nFormating Malloc Failed\n", 2);
 			return (NULL);
 		}
 	}
@@ -41,24 +41,20 @@ bool	valid_ext(char *path, t_main *main)
 	char	*ext;
 	size_t	i;
 
-	i = 0;
-	while(path[i] && path[i] != '.')
-		i++;
-	if(i == 0 || (i + 4 > ft_strlen(path)))
+	i = ft_strlen(path) - 1;
+	while(i > 0 && path[i] != '.')
+		i--;
+	if(i + 4 < ft_strlen(path))
 	{
-		ft_putstr_fd("[KO] INVALID MAP EXTENSION\n", 2);
+		ft_putstr_fd("Error\nInvalid Map Extension\n", 2);
 		return (false);
 	}
 	ext = ft_substr(path, i, i + 4, main);
 	if(!ext)
-	{
-		if(DEBUG)
-			ft_putstr_fd("[OK] valid_path < problem on substr to get the extentsion name .cub >\n", 2);
 		return (false);
-	}
 	if(ft_strcmp(".cub", ext))
 	{
-		ft_putstr_fd("[KO] INVALID MAP EXTENSION\n", 2);
+		ft_putstr_fd("Error\nInvalid Map Extension\n", 2);
 		return (false);
 	}
 	return (true);
@@ -85,7 +81,6 @@ bool	addcnt(int fd, t_main *main)
 {
 	char	*line;
 	size_t	c_lines;
-
 	line = gnl(fd, main);
 	if(!line)
 		return (false);
@@ -105,11 +100,21 @@ bool	addcnt(int fd, t_main *main)
 bool	valid_path(char *path, t_main *main)
 {
 	int		fd;
+	size_t	size;
 
 	fd = open(path, O_RDONLY);
 	if(fd == -1)
+	{
+		ft_putstr_fd("Error\nBad Texture File\n", 2);
 		return (false);
-	main->fcnt  = ft_malloc(main, ((bfr_size(fd, main) + 1) * sizeof(char *)));
+	}
+	size = bfr_size(fd, main);
+	if(size == 0)
+	{
+		ft_putstr_fd("Error\nEmpty file\n", 2);
+		return (false);
+	}
+	main->fcnt  = ft_malloc(main, (size + 1) * sizeof(char *));
 	if(!main->fcnt)
 		return (false);
 	close(fd);

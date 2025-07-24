@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 11:23:21 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/20 17:53:27 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/07/22 09:28:03 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ int	miniatoi(const char *ptr)
 			return (-1);
 		ptr++;
 	}
+	if(*ptr && (*ptr < '0' || *ptr > '9'))
+		return (-1);
 	return ((int)(total * sign));
 }
