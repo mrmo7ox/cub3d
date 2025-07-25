@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 13:25:37 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/24 09:56:39 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/07/24 21:04:04 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,41 +20,16 @@ int	close_win(t_main *main)
 	exit(1);
 }
 
+void	hooks_handler(t_main *main)
+{
+	mlx_hook(main->vars->win, 17, 0, close_win, main);
+	mlx_hook(main->vars->win, 2, 0L, player_move, main);
+	mlx_key_hook(main->vars->win, key_hook, main);
+	
+}
+
 int	key_hook(int keycode, t_main *main)
 {
-	printf("%d\n", keycode);
-	
-	if(124 == keycode)
-	{
-		if(main->p->x + (int)TSIZE < (int)main->map->width)
-			main->p->x  += (int)TSIZE;
-		else
-			main->p->x  = TSIZE;
-	}
-	if(123 == keycode)
-	{
-		if(main->p->x - (int)TSIZE > 0)
-			main->p->x  -= (int)TSIZE;
-		else
-			main->p->x  = (int)main->map->width + (int)TSIZE;
-	}
-	
-	if(125 == keycode)
-	{
-		if(main->p->y + (int)TSIZE < (int)main->map->height)
-			main->p->y  += (int)TSIZE;
-		else
-			main->p->y  = TSIZE;
-	}
-	if(126 == keycode)
-	{
-		if(main->p->y - (int)TSIZE > 0)
-			main->p->y  -= (int)TSIZE;
-		else
-			main->p->y = (int)main->map->height + (int)TSIZE;
-	}
-
-
 	draw(main);
 	if (53 == keycode)
 	{
