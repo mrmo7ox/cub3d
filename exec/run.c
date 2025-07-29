@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 12:43:41 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/25 10:11:53 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/07/29 19:46:02 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	draw(t_main *main)
 	main->img->img = mlx_new_image(main->vars->mlx,WIDTH, HEIGHT);
 	main->img->addr = mlx_get_data_addr(main->img->img, &main->img->bits_per_pixel, &main->img->line_length,
 							&main->img->endian);
+	draw_bg_2(main);
+	draw_bg(main);
 	draw_map(main);
 	draw_player(main);
 	mlx_put_image_to_window(main->vars->mlx, main->vars->win, main->img->img, 0, 0);
@@ -34,8 +36,8 @@ bool	init_res(t_main *main)
 	img = ft_malloc(main, sizeof(t_data));
 	if(!vars || !img)
 		return (false);
-	main->map->height = (HEIGHT * MSCALE);
-	main->map->width = (WIDTH * MSCALE);
+	main->map->tsize = MSIZE / ft_strlen(main->map->content[0]);
+	printf("main->map->still %d\n", main->map->tsize);
 	main->vars = vars;
 	main->img = img;
 	printf("height:%d \n",main->map->height);

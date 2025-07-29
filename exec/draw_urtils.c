@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 15:42:30 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/25 14:18:36 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:53:23 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,39 +25,45 @@ void	draw_sq(t_data *img ,size_t start_x , size_t start_y, size_t size, int colo
 	size_t dy = start_y + size;
 	size_t x = start_x;
 
-	while(start_y <= dy)
+	while(start_y < dy)
 	{
 		start_x = x;
-		while(start_x <= dx)
+		while(start_x < dx)
 			draw_pxl(img, start_x++ , start_y, color);
 		start_y++;
 	}	
 }
 
 
-void	draw_cer(t_data *img ,size_t s_x , size_t s_y, size_t r, int color)
+void	draw_line(t_main *main , double s_x, double s_y, double len, double angle,int color)
 {
-	size_t	x = 0;
-	size_t	y = -1 * r ;
-	size_t	rad = r;
-	size_t	ymid;
-
-
-	while(x < (y * -1))
+	double	end_x = s_x + cos(angle) * len;
+	double	end_y = s_y + sin(angle) * len;
+	double		dx = (end_x) - s_x;
+	double		dy = (end_y) - s_y;
+	double		step;
+	double		incx;
+	double		incy;
+	double		i = 0;
+	if(fabs(dx) > fabs(dy))
+		step = fabs(dx);
+	else
+		step = fabs(dy);
+	incx = dx / step;
+	incy = dy / step;
+	// printf("end_x = %f ", end_x);
+	// printf("end_y = %f ", end_y);
+	// printf("steps = %f ", step);
+	// printf("incx = %f ", incx);
+	// printf("incy = %f ", incy);
+	// printf("angle = %f\n", angle);
+	while(i <= step)
 	{
-			ymid = y + 0.5;
-			if(((x * x) + (ymid * ymid)) > rad * rad)
-				y = + 1;
-			draw_pxl(img, s_x + x , s_y + y, color);
-			draw_pxl(img, s_x - x , s_y + y, color);
-			draw_pxl(img, s_x + x , s_y - y, color);
-			draw_pxl(img, s_x - x , s_y - y, color);
-		
-			draw_pxl(img, s_x + y , s_y + x, color);
-			draw_pxl(img, s_x - y , s_y + x, color);
-			draw_pxl(img, s_x + y , s_y - x, color);
-			draw_pxl(img, s_x - y , s_y - x, color);
-			x++;
-		}
+		draw_pxl(main->img, s_x, s_y, color);
+		i++;
+		s_x += incx;
+		s_y += incy;
+	}
+	
 }
 

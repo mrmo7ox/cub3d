@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:58:13 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/25 10:11:37 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/07/28 14:22:35 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,24 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <math.h>
 
 #define TITLE "cub3d"
-#define	TSIZE 32
-#define WIDTH 800 
+#define	MSIZE 200
 #define MSCALE 0.25
-#define PI 3.14159265359
+#define WIDTH 800
 #define HEIGHT 800
+#define FOV 60
 
 enum {
-	ON_KEYDOWN = 2,
-	ON_KEYUP = 3,
-	ON_MOUSEDOWN = 4,
-	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6,
-	ON_EXPOSE = 12,
+	W = 13,
+	S = 1,
+	A = 0,
+	D = 2,
+	UP = 126,
+	DOWN = 125,
+	RIGHT = 123,
+	LEFT = 124,
 	ON_DESTROY = 17
 };
 
@@ -63,6 +66,7 @@ typedef	struct	s_map
 	char	**content;
 	int		width;
 	int		height;
+	int		tsize;
 	char	player;
 }			t_map;
 
@@ -70,6 +74,8 @@ typedef	struct	s_player
 {
 	double		x;
 	double		y;
+	double		steps;
+	double		size;
 	double	radius;
 	int		turn_direction;
 	int		walk_direction;
@@ -114,7 +120,11 @@ int		parse_color(char *color, t_main *main);
 bool    parsemap(int last, t_main *main);
 void	draw_map(t_main *main);
 void	draw_player(t_main *main);
-void	draw_cer(t_data *img ,size_t s_x , size_t s_y, size_t r, int color);
+void	draw_line(t_main *main , double s_x, double s_y, double len, double angle ,int color);
+double	torad(int angle);
+bool	iswall(t_main *main, double x, double y);
+void	draw_bg(t_main *main);
+void	draw_bg_2(t_main *main);
 
 //player
 bool	init_player(t_main *main);
