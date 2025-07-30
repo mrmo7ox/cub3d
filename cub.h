@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:58:13 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/28 14:22:35 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/07/30 14:16:23 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <math.h>
 
 #define TITLE "cub3d"
-#define	MSIZE 200
+#define	MSIZE 400
 #define MSCALE 0.25
 #define WIDTH 800
 #define HEIGHT 800
@@ -36,8 +36,19 @@ enum {
 	DOWN = 125,
 	RIGHT = 123,
 	LEFT = 124,
-	ON_DESTROY = 17
+	ON_DESTROY = 17,
+	ON_EXIT = 53
 };
+
+typedef enum	s_angle
+{
+	E_LEFT,
+	E_RIGHT,
+	E_UP,
+	E_DOWN,
+	E_NULL,
+}				t_angle;
+
 
 typedef struct  s_gc
 {
@@ -81,7 +92,7 @@ typedef	struct	s_player
 	int		walk_direction;
 	double	rotation_angle;
 	double	moving_speed;
-	int		rotation_speed;
+	double	rotation_speed;
 }			t_plr;
 
 
@@ -99,6 +110,16 @@ typedef struct	s_data {
 	int		endian;
 }				t_data;
 
+typedef struct	s_keys {
+	bool	w;
+	bool	s;
+	bool	d;
+	bool	a;
+	bool	l;
+	bool	r;
+	bool	exit;
+}				t_keys;
+
 typedef struct  s_main
 {
 	char	**fcnt;
@@ -109,6 +130,7 @@ typedef struct  s_main
 	t_data	*img;
 	t_plr	*p;
 	t_vars	*vars;
+	t_keys	*keys;
 }			t_main;
 
 
@@ -125,9 +147,16 @@ double	torad(int angle);
 bool	iswall(t_main *main, double x, double y);
 void	draw_bg(t_main *main);
 void	draw_bg_2(t_main *main);
+void	ray_castring(t_main *main,double angle , double x, double y);
 
 //player
 bool	init_player(t_main *main);
+
+
+//ray casting
+t_angle	get_angle(double angle);
+void	set_player_angle(t_main *main);
+
 
 // exec
 void	run(t_main *main);
@@ -135,7 +164,7 @@ void	draw(t_main *main);
 void	draw_pxl(t_data *img, int x, int y, int clr);
 void	draw_sq(t_data *img ,size_t start_x , size_t start_y, size_t size, int color);
 void	hooks_handler(t_main *main);
-int		player_move(int keycode, t_main *main);
+int		player_move( t_main *main);
 
 //mxl hooks and img
 int		close_win(t_main *main);

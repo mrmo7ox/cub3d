@@ -20,6 +20,8 @@
         "vector": "c",
         "unistd.h": "c",
         "__bit_reference": "c",
-        "ios": "c"
+        "ios": "c",
+        "chrono": "c",
+        "__locale": "c"
     }
 }

@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 12:43:41 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/29 19:46:02 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/07/30 13:08:19 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,16 @@ bool	init_res(t_main *main)
 {
 	t_vars	*vars;
 	t_data	*img;
-	
+	t_keys	*keys;
+
+	keys = ft_malloc(main, sizeof(t_keys));
+	keys->a = false;
+	keys->w = false;
+	keys->s = false;
+	keys->d = false;
+	keys->l = false;
+	keys->r = false;
+	main->keys = keys;
 	vars = ft_malloc(main, sizeof(t_vars));
 	vars->main = main;
 	img = ft_malloc(main, sizeof(t_data));
