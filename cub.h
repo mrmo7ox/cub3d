@@ -23,21 +23,34 @@
 #define TITLE "cub3d"
 #define	MSIZE 400
 #define MSCALE 0.25
-#define WIDTH 800
-#define HEIGHT 800
+#define WIDTH 500
+#define PI 3.14159
+#define HEIGHT 500
 #define FOV 60
 
+// enum {
+// 	W = 13,
+// 	S = 1,
+// 	A = 0,
+// 	D = 2,
+// 	UP = 126,
+// 	DOWN = 125,
+// 	RIGHT = 123,
+// 	LEFT = 124,
+// 	ON_DESTROY = 17,
+// 	ON_EXIT = 53
+// };
 enum {
-	W = 13,
-	S = 1,
-	A = 0,
-	D = 2,
-	UP = 126,
-	DOWN = 125,
-	RIGHT = 123,
-	LEFT = 124,
+	W = 119,
+	S = 115,
+	A = 97,
+	D = 100,
+	UP = 65362,
+	DOWN = 65364,
+	RIGHT = 65363,
+	LEFT = 65361,
 	ON_DESTROY = 17,
-	ON_EXIT = 53
+	ON_EXIT = 65307
 };
 
 typedef enum	s_angle
@@ -147,7 +160,10 @@ double	torad(int angle);
 bool	iswall(t_main *main, double x, double y);
 void	draw_bg(t_main *main);
 void	draw_bg_2(t_main *main);
-void	ray_castring(t_main *main,double angle , double x, double y);
+void	cast_single_ray(t_main *main,double angle , double x, double y);
+double	normalize_angle(double angle);
+void	draw_minimap(t_main *main);
+double	cast_ray(t_main *main, double angle);
 
 //player
 bool	init_player(t_main *main);

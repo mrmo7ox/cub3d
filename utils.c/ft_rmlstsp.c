@@ -22,7 +22,9 @@ char *ft_rmlstsp(char *str, t_main *main)
 		return (NULL);
     i = ft_strlen(str) - 1;
     while (i > 0 && ft_whitespaces(str[i]))
+	{
         i--;
+	}
 	if (i <= 0)
 		return (NULL);
 	i++;
@@ -41,7 +43,9 @@ char *ft_rmlstspmap(char *str, t_main *main)
 		return (NULL);
     i = ft_strlen(str) - 1;
     while (i > 0 && ft_whitespaces(str[i]))
+	{
         i--;
+	}
 	if (i <= 0)
 		return (ft_strdup("", main));
 	i++;

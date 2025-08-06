@@ -1,10 +1,10 @@
 NO ./textures/enemy.xpm 
-F 0,22,1
 SO ./textures/enemy.xpm
 WE ./textures/gold.xpm
 EA ./textures/wall.xpm
 
-C 0,0,0
+F 0,100,200
+C 255,255,255
 
 11111111111
 10010000001

@@ -23,7 +23,7 @@ int	close_win(t_main *main)
 int	keypress(int key_hook, t_main *main)
 {
 	t_keys	*keys;
-
+	printf("key code == %d\n", key_hook);
 	keys = main->keys;
 	if(key_hook == W)
 		keys->w = true;

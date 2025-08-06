@@ -51,12 +51,6 @@ void	draw_line(t_main *main , double s_x, double s_y, double len, double angle,i
 		step = fabs(dy);
 	incx = dx / step;
 	incy = dy / step;
-	// printf("end_x = %f ", end_x);
-	// printf("end_y = %f ", end_y);
-	// printf("steps = %f ", step);
-	// printf("incx = %f ", incx);
-	// printf("incy = %f ", incy);
-	// printf("angle = %f\n", angle);
 	while(i <= step)
 	{
 		draw_pxl(main->img, s_x, s_y, color);
