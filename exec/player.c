@@ -20,43 +20,27 @@ int	player_move(t_main *main)
 	{
 		new_x = main->p->x + cos(main->p->rotation_angle) * main->p->moving_speed;
 		new_y = main->p->y + sin(main->p->rotation_angle) * main->p->moving_speed;
-		if (!iswall(main, new_x, new_y))
-		{
-			main->p->x = new_x;
-			main->p->y = new_y;
-		}
+		move_with_collision(main, new_x, new_y);
 	}
 	if (main->keys->s)
 	{
 		new_x = main->p->x - cos(main->p->rotation_angle) * main->p->moving_speed;
 		new_y = main->p->y - sin(main->p->rotation_angle) * main->p->moving_speed;
-		if (!iswall(main, new_x, new_y))
-		{
-			main->p->x = new_x;
-			main->p->y = new_y;
-		}
+		move_with_collision(main, new_x, new_y);
 	}
 
 	if (main->keys->d)
 	{
 		new_x = main->p->x + sin(main->p->rotation_angle) * main->p->moving_speed;
 		new_y = main->p->y - cos(main->p->rotation_angle) * main->p->moving_speed;
-		if (!iswall(main, new_x, new_y))
-		{
-			main->p->x = new_x;
-			main->p->y = new_y;
-		}
+		move_with_collision(main, new_x, new_y);
 	}
 
 	if (main->keys->a)
 	{
 		new_x = main->p->x - sin(main->p->rotation_angle) * main->p->moving_speed;
 		new_y = main->p->y + cos(main->p->rotation_angle) * main->p->moving_speed;
-		if (!iswall(main, new_x, new_y))
-		{
-			main->p->x = new_x;
-			main->p->y = new_y;
-		}
+		move_with_collision(main, new_x, new_y);
 	}
 	if (main->keys->l)
 		main->p->rotation_angle -= main->p->rotation_speed;

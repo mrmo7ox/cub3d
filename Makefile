@@ -25,7 +25,7 @@ USRC    = utils.c/ft_rmlstsp.c utils.c/ft_countchr.c utils.c/splitcolor.c \
 PSRC    = parsing/map_utils.c parsing/file.c parsing/txtrs_clrs.c \
           parsing/map.c parsing/colors.c
 ESEC    = exec/ray_casting.c exec/alpha.c exec/utils.c exec/player.c \
-          exec/minimap.c exec/draw_urtils.c exec/img_utils.c exec/hooks.c exec/run.c
+          exec/minimap.c exec/draw_urtils.c exec/img_utils.c exec/hooks.c exec/run.c exec/collosion.c
 
 SRCS    = main.c $(PSRC) $(USRC) $(GNLSRC) $(ESEC)
 OBJS    = $(SRCS:.c=.o)

@@ -165,6 +165,12 @@ double	normalize_angle(double angle);
 void	draw_minimap(t_main *main);
 double	cast_ray(t_main *main, double angle);
 
+// collision
+bool	check_collision_at(t_main *main, double x, double y);
+bool	collision_x(t_main *main, double new_x, double current_y);
+bool	collision_y(t_main *main, double current_x, double new_y);
+void	move_with_collision(t_main *main, double new_x, double new_y);
+
 //player
 bool	init_player(t_main *main);
 
