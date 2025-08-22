@@ -28,13 +28,9 @@ bool	iswall(t_main *main, double x, double y)
 	{
 		map_x = (int)(corners[i][0] / main->map->tsize);
 		map_y = (int)(corners[i][1] / main->map->tsize);
-
-		// Bounds check
 		if (map_y < 0 || map_y >= (int)ft_dplen(main->map->content) ||
 			map_x < 0 || map_x >= (int)ft_strlen(main->map->content[map_y]))
 			return (true);
-
-		// Wall check
 		if (main->map->content[map_y][map_x] == '1')
 			return (true);
 	}
@@ -83,13 +79,9 @@ void draw_minimap(t_main *main)
 	int player_mini_x = 10 + (main->p->x * scale);
 	int player_mini_y = 10 + (main->p->y * scale);
 	int player_mini_size = main->p->size * scale;
-	if (player_mini_size < 3) player_mini_size = 3; // Minimum size
+	if (player_mini_size < 3) player_mini_size = 3;
 	
 	draw_sq(main->img, player_mini_x, player_mini_y, player_mini_size, 0xff0000); // Red player
-	
-	// double dir_length = 15;
-	// draw_line(main, player_mini_x + player_mini_size/2, player_mini_y + player_mini_size/2,
-	// 		  dir_length, main->p->rotation_angle, 0xffff00); // Yellow direction line
 	
 	double fov = FOV * PI / 180;
 	int num_rays = 20;
@@ -100,11 +92,12 @@ void draw_minimap(t_main *main)
 		ray_angle = normalize_angle(ray_angle);
 		
 		double dist = cast_ray(main, ray_angle);
+		ft_adddist(main->dist, ft_newdist(main, dist));
 		double scaled_dist = dist * scale;
 		if (scaled_dist > minimap_size) scaled_dist = minimap_size; // Clamp to minimap
 		
 		draw_line(main, player_mini_x + player_mini_size/2, player_mini_y + player_mini_size/2,
-				  scaled_dist, ray_angle, 0x00ff00); // Green rays
+				  scaled_dist, ray_angle, 0x00ff00);
 	}
 	
 	draw_minimap_border(main);

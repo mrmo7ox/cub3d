@@ -69,6 +69,12 @@ typedef struct  s_gc
 	struct  s_gc	*next;
 }					t_gc;
 
+typedef struct  s_dist
+{
+	double  		dist;
+	struct  s_dist	*next;
+}					t_dist;
+
 typedef	struct	s_textures
 {
 	char	*no;
@@ -144,6 +150,7 @@ typedef struct  s_main
 	t_plr	*p;
 	t_vars	*vars;
 	t_keys	*keys;
+	t_dist	**dist;
 }			t_main;
 
 
@@ -165,6 +172,18 @@ double	normalize_angle(double angle);
 void	draw_minimap(t_main *main);
 double	cast_ray(t_main *main, double angle);
 
+//ray_list
+t_dist	*ft_newdist(t_main *main, double dist);
+bool	ft_adddist(t_dist **head, t_dist *node);
+
+//
+bool check_wall_at_position(t_main *main, double x, double y);
+bool check_collision_with_radius(t_main *main, double x, double y);
+bool can_move_to(t_main *main, double new_x, double new_y);
+void handle_wall_sliding(t_main *main, double target_x, double target_y, double *final_x, double *final_y);
+bool move_player_with_collision(t_main *main, double target_x, double target_y);
+void collosion(t_main *main);
+void render_3d_view(t_main *main);
 //player
 bool	init_player(t_main *main);
 

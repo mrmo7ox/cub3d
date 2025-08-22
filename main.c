@@ -21,6 +21,10 @@ int main(int ac, char **dc)
 	// atexit(ff);
 	t_main	main;
 	t_gc	*gc;
+	t_dist *dst;
+
+	dst = NULL;
+	main.dist = &dst;
 
 	if(ac != 2)
 	{

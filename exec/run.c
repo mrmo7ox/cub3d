@@ -20,6 +20,7 @@ void	draw(t_main *main)
 										&main->img->line_length, &main->img->endian);
 	draw_bg_2(main);
 	draw_minimap(main);
+	render_3d_view(main);
 	mlx_put_image_to_window(main->vars->mlx, main->vars->win, main->img->img, 0, 0);
 }
 

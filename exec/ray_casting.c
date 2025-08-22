@@ -36,24 +36,20 @@ double	normalize_angle(double angle)
 
 double	cast_ray(t_main *main, double angle)
 {
-	double	ray_x = main->p->x + (main->p->size / 2);  // Start from player center
+	double	ray_x = main->p->x + (main->p->size / 2);  
 	double	ray_y = main->p->y + (main->p->size / 2);
 	double	ray_cos = cos(angle);
 	double	ray_sin = sin(angle);
 	double	dist = 0;
-	double	step = 0.5;  // Smaller step for better precision
+	double	step = 0.5;
 	
-	while (dist < (main->map->width * main->map->tsize))  // Max ray distance
+	while (dist < (main->map->height * main->map->tsize))
 	{
 		ray_x += ray_cos * step;
 		ray_y += ray_sin * step;
 		dist += step;
-		
-		// Check if ray hit a wall
 		int map_x = (int)(ray_x / main->map->tsize);
 		int map_y = (int)(ray_y / main->map->tsize);
-		
-		// Check bounds
 		if (map_y < 0 || map_y >= (int)ft_dplen(main->map->content) ||
 			map_x < 0 || map_x >= (int)ft_strlen(main->map->content[map_y]))
 			break;

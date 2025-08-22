@@ -12,64 +12,54 @@
 
 #include "../cub.h"
 
-int	player_move(t_main *main)
+int player_move(t_main *main)
 {
-	double new_x, new_y;
-	
-	if (main->keys->w)
-	{
-		new_x = main->p->x + cos(main->p->rotation_angle) * main->p->moving_speed;
-		new_y = main->p->y + sin(main->p->rotation_angle) * main->p->moving_speed;
-		if (!iswall(main, new_x, new_y))
-		{
-			main->p->x = new_x;
-			main->p->y = new_y;
-		}
-	}
-	if (main->keys->s)
-	{
-		new_x = main->p->x - cos(main->p->rotation_angle) * main->p->moving_speed;
-		new_y = main->p->y - sin(main->p->rotation_angle) * main->p->moving_speed;
-		if (!iswall(main, new_x, new_y))
-		{
-			main->p->x = new_x;
-			main->p->y = new_y;
-		}
-	}
+    double new_x = main->p->x;
+    double new_y = main->p->y;
+    
+    if (main->keys->w)
+    {
+        new_x = main->p->x + cos(main->p->rotation_angle) * main->p->moving_speed;
+        new_y = main->p->y + sin(main->p->rotation_angle) * main->p->moving_speed;
+        move_player_with_collision(main, new_x, new_y);
+    }
+    
+    if (main->keys->s)
+    {
+        new_x = main->p->x - cos(main->p->rotation_angle) * main->p->moving_speed;
+        new_y = main->p->y - sin(main->p->rotation_angle) * main->p->moving_speed;
+        move_player_with_collision(main, new_x, new_y);
+    }
 
-	if (main->keys->d)
-	{
-		new_x = main->p->x + sin(main->p->rotation_angle) * main->p->moving_speed;
-		new_y = main->p->y - cos(main->p->rotation_angle) * main->p->moving_speed;
-		if (!iswall(main, new_x, new_y))
-		{
-			main->p->x = new_x;
-			main->p->y = new_y;
-		}
-	}
+    if (main->keys->d)
+    {
+        new_x = main->p->x - sin(main->p->rotation_angle) * main->p->moving_speed;
+        new_y = main->p->y + cos(main->p->rotation_angle) * main->p->moving_speed;
+        move_player_with_collision(main, new_x, new_y);
+    }
 
-	if (main->keys->a)
-	{
-		new_x = main->p->x - sin(main->p->rotation_angle) * main->p->moving_speed;
-		new_y = main->p->y + cos(main->p->rotation_angle) * main->p->moving_speed;
-		if (!iswall(main, new_x, new_y))
-		{
-			main->p->x = new_x;
-			main->p->y = new_y;
-		}
-	}
-	if (main->keys->l)
-		main->p->rotation_angle -= main->p->rotation_speed;
-	if (main->keys->r)
-		main->p->rotation_angle += main->p->rotation_speed;
+    if (main->keys->a)
+    {
+        new_x = main->p->x + sin(main->p->rotation_angle) * main->p->moving_speed;
+        new_y = main->p->y - cos(main->p->rotation_angle) * main->p->moving_speed;
+        move_player_with_collision(main, new_x, new_y);
+    }
+    
+    if (main->keys->l)
+        main->p->rotation_angle -= main->p->rotation_speed;
+    if (main->keys->r)
+        main->p->rotation_angle += main->p->rotation_speed;
 
-	main->p->rotation_angle = normalize_angle(main->p->rotation_angle);
+    main->p->rotation_angle = normalize_angle(main->p->rotation_angle);
 
-	if (main->keys->exit)
-		close_win(main);
+    if (main->keys->exit)
+        close_win(main);
 
-	draw(main);
-	return (0);
+    // Call collision function for additional checks
+    collosion(main);
+    
+    draw(main);
+    return (0);
 }
 
 double	norm_angle(double angle)
