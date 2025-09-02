@@ -12,16 +12,15 @@
 
 #include "../cub.h"
 
-void	draw(t_main *main)
+void draw(t_main *main)
 {
-	mlx_destroy_image(main->vars->mlx, main->img->img);
-	main->img->img = mlx_new_image(main->vars->mlx, WIDTH, HEIGHT);
-	main->img->addr = mlx_get_data_addr(main->img->img, &main->img->bits_per_pixel, 
-										&main->img->line_length, &main->img->endian);
-	draw_bg_2(main);
+    mlx_destroy_image(main->vars->mlx, main->img->img);
+    main->img->img = mlx_new_image(main->vars->mlx, WIDTH, HEIGHT);
+    main->img->addr = mlx_get_data_addr(main->img->img, &main->img->bits_per_pixel, 
+                                        &main->img->line_length, &main->img->endian);
+	render_3d_view(main); 
 	draw_minimap(main);
-	render_3d_view(main);
-	mlx_put_image_to_window(main->vars->mlx, main->vars->win, main->img->img, 0, 0);
+    mlx_put_image_to_window(main->vars->mlx, main->vars->win, main->img->img, 0, 0);
 }
 
 bool	init_res(t_main *main)
@@ -61,7 +60,9 @@ bool	init_res(t_main *main)
 	main->map->tsize = fmin((WIDTH - 250) / max_map_width, (HEIGHT - 50) / map_height);
 	if (main->map->tsize < 10)
 		main->map->tsize = 10;
-	
+	main->map->width = ft_dplen(main->map->content);
+	main->map->height = ft_strlen(main->map->content[0]);
+
 	printf("Tile size: %d\n", main->map->tsize);
 	printf("Map height: %d\n", map_height);
 	printf("Map width: %d\n", max_map_width);

@@ -12,7 +12,7 @@
 
 CC      = cc
 CFLAGS  = #-Wall -Wextra -Werror 
-MFLAGS  = -lmlx -lX11 -lXext -lm
+MFLAGS  = -L/home/moel-oua/Downloads/minilibx-linux -lmlx -lX11 -lXext -lm
 
 NAME    = cub
 HEADERS = cub.h

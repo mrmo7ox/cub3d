@@ -12,9 +12,9 @@
 
 #include "cub.h"
 
-void ff() {
-	system("leaks cub");
-}
+// void ff() {
+// 	system("leaks cub");
+// }
 
 int main(int ac, char **dc)
 {

@@ -54,20 +54,21 @@ void draw_minimap_border(t_main *main)
 void draw_minimap(t_main *main)
 {
 	int minimap_size = 200;
-	main->map->width = ft_dplen(main->map->content);
-	main->map->height = ft_strlen(main->map->content[0]);
 	double scale_x = (double)minimap_size / (main->map->height * main->map->tsize);
 	double scale_y = (double)minimap_size / (main->map->width * main->map->tsize);
 	double scale = fmin(scale_x, scale_y);
+	
 	draw_sq(main->img, 10, 10, minimap_size, 0x000000);
+	
 	for (int y = 0; y < main->map->width; y++)
 	{
 		int cols = ft_strlen(main->map->content[y]);
 		for (int x = 0; x < cols; x++)
 		{
-			int mini_x = 10 + (x * main->map->tsize * scale);
-			int mini_y = 10 + (y * main->map->tsize * scale);
-			int tile_size = main->map->tsize * scale;
+			int mini_x = 10 + (int)(x * main->map->tsize * scale);
+			int mini_y = 10 + (int)(y * main->map->tsize * scale);
+			int tile_size = (int)(main->map->tsize * scale);
+			if (tile_size < 1) tile_size = 1;
 			
 			if (main->map->content[y][x] == '1')
 				draw_sq(main->img, mini_x, mini_y, tile_size, main->colors->c);
@@ -76,29 +77,39 @@ void draw_minimap(t_main *main)
 		}
 	}
 	
-	int player_mini_x = 10 + (main->p->x * scale);
-	int player_mini_y = 10 + (main->p->y * scale);
-	int player_mini_size = main->p->size * scale;
+	double player_mini_x = 10 + (main->p->x * scale);
+	double player_mini_y = 10 + (main->p->y * scale);
+	double player_mini_size = main->p->size * scale;
 	if (player_mini_size < 3) player_mini_size = 3;
 	
-	draw_sq(main->img, player_mini_x, player_mini_y, player_mini_size, 0xff0000); // Red player
+	draw_sq(main->img, (int)player_mini_x, (int)player_mini_y, (int)player_mini_size, 0xff0000); 
 	
 	double fov = FOV * PI / 180;
-	int num_rays = 20;
+	int num_rays = 50;
 	
-	for (int i = 0; i < num_rays; i++)
+	for (int i = 0; i <= num_rays; i++)
 	{
-		double ray_angle = main->p->rotation_angle - (fov / 2) + (i * fov / num_rays);
+		double ray_angle = main->p->rotation_angle - (fov / 2) + ((double)i * fov / (double)num_rays);
 		ray_angle = normalize_angle(ray_angle);
 		
 		double dist = cast_ray(main, ray_angle);
-		ft_adddist(main->dist, ft_newdist(main, dist));
 		double scaled_dist = dist * scale;
-		if (scaled_dist > minimap_size) scaled_dist = minimap_size; // Clamp to minimap
+		
+		if (scaled_dist > minimap_size * 0.8) 
+			scaled_dist = minimap_size * 0.8;
 		
 		draw_line(main, player_mini_x + player_mini_size/2, player_mini_y + player_mini_size/2,
 				  scaled_dist, ray_angle, 0x00ff00);
 	}
+	
+	double center_ray_angle = normalize_angle(main->p->rotation_angle);
+	double center_dist = cast_ray(main, center_ray_angle);
+	double center_scaled_dist = center_dist * scale;
+	if (center_scaled_dist > minimap_size * 0.8) 
+		center_scaled_dist = minimap_size * 0.8;
+	
+	draw_line(main, player_mini_x + player_mini_size/2, player_mini_y + player_mini_size/2,
+			  center_scaled_dist, center_ray_angle, 0xfc032c);
 	
 	draw_minimap_border(main);
 }

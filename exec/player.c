@@ -23,7 +23,6 @@ int player_move(t_main *main)
         new_y = main->p->y + sin(main->p->rotation_angle) * main->p->moving_speed;
         move_player_with_collision(main, new_x, new_y);
     }
-    
     if (main->keys->s)
     {
         new_x = main->p->x - cos(main->p->rotation_angle) * main->p->moving_speed;
@@ -54,10 +53,7 @@ int player_move(t_main *main)
 
     if (main->keys->exit)
         close_win(main);
-
-    // Call collision function for additional checks
     collosion(main);
-    
     draw(main);
     return (0);
 }
@@ -109,8 +105,8 @@ bool	init_player(t_main *main)
 	plr->turn_direction = 0;
 	plr->walk_direction = 0;
 	plr->rotation_angle = PI;
-	plr->moving_speed = 0.5;
-	plr->rotation_speed = 1 * (PI / 180);
+	plr->moving_speed = 1;
+	plr->rotation_speed = 2 * (PI / 180);
 	main->p = plr;
 	if(!addplrcord(main))
 		return (false);

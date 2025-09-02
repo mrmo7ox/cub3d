@@ -34,3 +34,21 @@ bool	ft_adddist(t_dist **head, t_dist *node)
 	last->next = node;
 	return (true);
 }
+
+
+void ft_cleandist(t_dist **head)
+{
+    t_dist *tmp;
+    t_dist *next;
+
+    if (!head || !*head)
+        return;
+    tmp = *head;
+    while (tmp)
+    {
+        next = tmp->next;
+        free(tmp);
+        tmp = next;
+    }
+    *head = NULL;
+}

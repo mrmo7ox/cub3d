@@ -28,35 +28,53 @@ void	set_player_angle(t_main *main)
 
 double	normalize_angle(double angle)
 {
-	angle = fmod(angle, 2 * PI);
-	if (angle < 0)
+	while (angle < 0)
 		angle += 2 * PI;
+	while (angle >= 2 * PI)
+		angle -= 2 * PI;
 	return (angle);
+}
+
+bool is_wall_at(t_main *main, double x, double y)
+{
+	int map_x, map_y;
+	
+	map_x = (int)(x / main->map->tsize);
+	map_y = (int)(y / main->map->tsize);
+	
+	if (map_y < 0 || map_y >= (int)ft_dplen(main->map->content) ||
+		map_x < 0 || map_x >= (int)ft_strlen(main->map->content[map_y]))
+		return (true);
+		
+	return (main->map->content[map_y][map_x] == '1');
 }
 
 double	cast_ray(t_main *main, double angle)
 {
-	double	ray_x = main->p->x + (main->p->size / 2);  
-	double	ray_y = main->p->y + (main->p->size / 2);
+	double	ray_x = main->p->x + (main->p->size / 2.0);  
+	double	ray_y = main->p->y + (main->p->size / 2.0);
 	double	ray_cos = cos(angle);
 	double	ray_sin = sin(angle);
 	double	dist = 0;
-	double	step = 0.5;
-	
-	while (dist < (main->map->height * main->map->tsize))
+	double	step = 0.3;
+	double	max_dist = main->map->height * main->map->tsize * 2;
+
+	while (dist < max_dist)
 	{
+		if (is_wall_at(main, ray_x, ray_y) ||
+			is_wall_at(main, ray_x + step, ray_y) ||
+			is_wall_at(main, ray_x - step, ray_y) ||
+			is_wall_at(main, ray_x, ray_y + step) ||
+			is_wall_at(main, ray_x, ray_y - step))
+			break;
+			
 		ray_x += ray_cos * step;
 		ray_y += ray_sin * step;
 		dist += step;
-		int map_x = (int)(ray_x / main->map->tsize);
-		int map_y = (int)(ray_y / main->map->tsize);
-		if (map_y < 0 || map_y >= (int)ft_dplen(main->map->content) ||
-			map_x < 0 || map_x >= (int)ft_strlen(main->map->content[map_y]))
-			break;
-			
-		if (main->map->content[map_y][map_x] == '1')
-			break;
 	}
 	
+	if (dist >= max_dist)
+		dist = max_dist;
+		
 	return (dist);
 }

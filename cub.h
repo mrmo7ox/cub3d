@@ -175,6 +175,7 @@ double	cast_ray(t_main *main, double angle);
 //ray_list
 t_dist	*ft_newdist(t_main *main, double dist);
 bool	ft_adddist(t_dist **head, t_dist *node);
+void ft_cleandist(t_dist **head);
 
 //
 bool check_wall_at_position(t_main *main, double x, double y);
