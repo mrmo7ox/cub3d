@@ -5,111 +5,98 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/24 16:31:38 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/08/06 18:15:36 by moel-oua         ###   ########.fr       */
+/*   Created: 2025/09/13 13:51:17 by moel-oua          #+#    #+#             */
+/*   Updated: 2025/09/13 21:33:05 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-int player_move(t_main *main)
+bool	is_wall(t_main *main, double new_x, double new_y)
 {
-    double new_x = main->p->x;
-    double new_y = main->p->y;
-    
-    if (main->keys->w)
-    {
-        new_x = main->p->x + cos(main->p->rotation_angle) * main->p->moving_speed;
-        new_y = main->p->y + sin(main->p->rotation_angle) * main->p->moving_speed;
-        move_player_with_collision(main, new_x, new_y);
-    }
-    if (main->keys->s)
-    {
-        new_x = main->p->x - cos(main->p->rotation_angle) * main->p->moving_speed;
-        new_y = main->p->y - sin(main->p->rotation_angle) * main->p->moving_speed;
-        move_player_with_collision(main, new_x, new_y);
-    }
+	int	map_width;
+	int	map_height;
+	int	top_left_x;
+	int	top_left_y;
 
-    if (main->keys->d)
-    {
-        new_x = main->p->x - sin(main->p->rotation_angle) * main->p->moving_speed;
-        new_y = main->p->y + cos(main->p->rotation_angle) * main->p->moving_speed;
-        move_player_with_collision(main, new_x, new_y);
-    }
-
-    if (main->keys->a)
-    {
-        new_x = main->p->x + sin(main->p->rotation_angle) * main->p->moving_speed;
-        new_y = main->p->y - cos(main->p->rotation_angle) * main->p->moving_speed;
-        move_player_with_collision(main, new_x, new_y);
-    }
-    
-    if (main->keys->l)
-        main->p->rotation_angle -= main->p->rotation_speed;
-    if (main->keys->r)
-        main->p->rotation_angle += main->p->rotation_speed;
-
-    main->p->rotation_angle = normalize_angle(main->p->rotation_angle);
-
-    if (main->keys->exit)
-        close_win(main);
-    collosion(main);
-    draw(main);
-    return (0);
+	map_width = ft_strlen(main->map->content[0]);
+	map_height = ft_dplen(main->map->content);
+	top_left_x = (int)floor(new_x / main->map->tsize);
+	top_left_y = (int)floor(new_y / main->map->tsize);
+	if (top_left_x < 0 || top_left_x >= map_width || top_left_y < 0
+		|| top_left_y >= map_height)
+		return (true);
+	if (main->map->content[top_left_y][top_left_x] == '1')
+		return (true);
+	return (false);
 }
 
-double	norm_angle(double angle)
+bool	player_pos(t_main *main)
 {
-	angle = fmod(angle, 2.0 * PI);
-	if (angle < 0)
-		angle += 2.0 * PI;
-	return (angle);
-}
-
-bool	addplrcord(t_main *main)
-{
-	int	y;
 	int	x;
+	int	y;
 
 	y = 0;
-	while(y < (int)ft_dplen(main->map->content))
+	while (main->map->content[y])
 	{
 		x = 0;
-		while(x < (int)ft_strlen(main->map->content[y]))
+		while (main->map->content[y][x])
 		{
-			if(main->map->content[y][x] == main->map->player)
+			if (main->map->content[y][x] == main->map->player)
 			{
-				main->p->x = x * main->map->tsize + main->map->tsize/2 - main->p->size/2;
-				main->p->y = y * main->map->tsize + main->map->tsize/2 - main->p->size/2;
+				main->p->x = x + (main->map->tsize / 2) / main->map->tsize;
+				main->p->y = y + (main->map->tsize / 4) / main->map->tsize;
 				return (true);
 			}
 			x++;
 		}
 		y++;
 	}
-	return (true);
+	return (false);
 }
 
 bool	init_player(t_main *main)
 {
-	t_plr	*plr;
+	t_plr	*p;
 
-	plr = ft_malloc(main, sizeof(t_plr));
-	if(!plr)
+	p = ft_malloc(main, sizeof(t_plr));
+	if (!p)
 		return (false);
-	plr->y = 0;
-	plr->x = 0;
-	plr->size = main->map->tsize / 3; 
-	plr->steps = (main->map->tsize / plr->size);
-	plr->radius = plr->size / 2;
-	plr->turn_direction = 0;
-	plr->walk_direction = 0;
-	plr->rotation_angle = PI;
-	plr->moving_speed = 1;
-	plr->rotation_speed = 2 * (PI / 180);
-	main->p = plr;
-	if(!addplrcord(main))
+	main->p = p;
+	if (!player_pos(main))
 		return (false);
 	set_player_angle(main);
+	main->p->height = 5;
+	main->p->width = 5;
+	main->p->size = main->p->height * main->p->width * MINIMAP_SCALE;
+	main->p->turn_direction = 0;
+	main->p->walk_direction = 0;
+	main->p->walk_speed = 0.08;
+	main->p->turn_speed = 2 * (M_PI / 180);
 	return (true);
+}
+
+void	draw_player(t_main *main)
+{
+	double	px;
+	double	py;
+
+	px = main->p->x * main->map->tsize;
+	py = main->p->y * main->map->tsize;
+	draw_sq(main->img, px, py, main->p->size, 0xfc0398);
+}
+
+void	set_player_angle(t_main *main)
+{
+	char player;
+
+	player = main->map->player;
+	if (player == 'S')
+		main->p->rotation_angle = M_PI / 2;
+	else if (player == 'E')
+		main->p->rotation_angle = 0;
+	else if (player == 'N')
+		main->p->rotation_angle = (3 * M_PI) / 2;
+	else if (player == 'W')
+		main->p->rotation_angle = M_PI;
 }
