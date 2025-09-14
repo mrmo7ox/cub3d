@@ -1,0 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   txtrs_clrs_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/14 10:06:27 by moel-oua          #+#    #+#             */
+/*   Updated: 2025/09/14 10:10:24 by moel-oua         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../cub.h"
+
+bool	txturs_test(char *path, char **txtvar)
+{
+	int	fd;
+
+	if (*txtvar)
+		return (false);
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		return (false);
+	*txtvar = path;
+	close(fd);
+	return (true);
+}
+
+bool	chckadd_txtrs(char **splited, t_main *main)
+{
+	if (!main->txtrs->done)
+	{
+		if (!main->txtrs || ft_dplen(splited) != 2)
+			return (false);
+		else if (!ft_strcmp("SO", splited[0]))
+			return (txturs_test(splited[1], &main->txtrs->so));
+		else if (!ft_strcmp("NO", splited[0]))
+			return (txturs_test(splited[1], &main->txtrs->no));
+		else if (!ft_strcmp("WE", splited[0]))
+			return (txturs_test(splited[1], &main->txtrs->we));
+		else if (!ft_strcmp("EA", splited[0]))
+			return (txturs_test(splited[1], &main->txtrs->ea));
+	}
+	return (false);
+}
+
+bool	clrs_txtrs_done(t_main *main)
+{
+	if (main->txtrs->so && main->txtrs->ea && main->txtrs->no
+		&& main->txtrs->we)
+		main->txtrs->done = (true);
+	if (main->colors->c != -69 && main->colors->f != -69)
+		main->colors->done = (true);
+	if (main->colors->done && main->txtrs->done)
+		return (true);
+	return (false);
+}

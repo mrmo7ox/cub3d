@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:29:46 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/13 21:41:53 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 10:46:09 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ bool	init_rays(t_main *main)
 
 void	render_rays(t_main *main)
 {
-	int		i;
-	double	px;
-	double	py;
+	int				i;
+	double			px;
+	double			py;
+	t_line_params	params;
 
 	i = 0;
 	px = main->p->x * main->map->tsize + (main->p->width / 2);
@@ -47,10 +48,14 @@ void	render_rays(t_main *main)
 		if (main->rays[i] && main->rays[i]->wallhitx > 0
 			&& main->rays[i]->wallhity > 0)
 		{
-			draw_line(main, px, py, sqrt(pow(main->rays[i]->wallhitx - px, 2)
-					+ pow(main->rays[i]->wallhity - py, 2)),
-				atan2(main->rays[i]->wallhity - py, main->rays[i]->wallhitx
-					- px), 0xFF0000);
+			params.start_x = px;
+			params.start_y = py;
+			params.len = sqrt(pow(main->rays[i]->wallhitx - px, 2)
+					+ pow(main->rays[i]->wallhity - py, 2));
+			params.angle = atan2(main->rays[i]->wallhity - py,
+					main->rays[i]->wallhitx - px);
+			params.color = 0xFF0000;
+			draw_line(main, &params);
 		}
 		i++;
 	}

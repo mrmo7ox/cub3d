@@ -6,26 +6,25 @@
 #    By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/19 17:04:02 by moel-oua          #+#    #+#              #
-#    Updated: 2025/08/06 15:00:00 by moel-oua         ###   ########.fr        #
+#    Updated: 2025/09/14 10:39:15 by moel-oua         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC      = cc
-CFLAGS  = #-Wall -Wextra -Werror 
-MFLAGS  = -L/home/moel-oua/Downloads/minilibx-linux -lmlx -lX11 -lXext -lm
+CFLAGS  = -fsanitize=address -g3 #-Wall -Wextra -Werror 
+MFLAGS  =  -lmlx -lX11 -lXext -lm
 
 NAME    = cub
 HEADERS = cub.h
 
 GNLSRC  = gnl/get_next_line_utils.c gnl/get_next_line.c
-USRC    = utils.c/ft_dist_list.c utils.c/ft_rmlstsp.c utils.c/ft_countchr.c utils.c/splitcolor.c \
-          utils.c/miniatoi.c utils.c/ft_putstr_fd.c utils.c/ft_strlen.c \
-          utils.c/ft_gc.c utils.c/ft_substr.c utils.c/ft_memcpy.c \
-          utils.c/ft_strcmp.c utils.c/ft_whitespaces.c utils.c/ft_split.c
-PSRC    = parsing/map_utils.c parsing/file.c parsing/txtrs_clrs.c \
+USRC    = utils/ft_rmlstsp.c utils/ft_countchr.c utils/splitcolor.c \
+          utils/miniatoi.c utils/ft_putstr_fd.c utils/ft_strlen.c \
+          utils/ft_gc.c utils/ft_substr.c utils/ft_memcpy.c \
+          utils/ft_strcmp.c utils/ft_whitespaces.c utils/ft_split.c
+PSRC    = parsing/file_utils.c parsing/map_checker.c parsing/txtrs_clrs_utils.c parsing/map_utils.c parsing/file.c parsing/txtrs_clrs.c \
           parsing/map.c parsing/colors.c
-ESEC    = exec/render.c exec/collision.c exec/ray_casting.c exec/alpha.c exec/utils.c exec/player.c \
-          exec/minimap.c exec/draw_urtils.c exec/img_utils.c exec/hooks.c exec/run.c
+ESEC    = exec/render_utils.c exec/casting3.c exec/player_utils2.c exec/player_utils.c exec/casting2.c  exec/render.c exec/minimap.c exec/casting.c exec/player.c exec/utils.c exec/draw_utils.c exec/img_utils.c exec/hooks.c exec/run.c
 
 SRCS    = main.c $(PSRC) $(USRC) $(GNLSRC) $(ESEC)
 OBJS    = $(SRCS:.c=.o)
@@ -34,7 +33,7 @@ all: $(NAME)
 	make clean
 	./cub maps/hi.cub
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(MFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(MFLAGS) -o $(NAME)
 
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@

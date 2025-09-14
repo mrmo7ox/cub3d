@@ -6,36 +6,25 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 16:37:20 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/22 17:45:57 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 10:17:27 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-int	end_map(t_main *main)
-{
-	int	i;
-
-	i = ft_dplen(main->fcnt) - 1;
-
-	while (i > 0 && !ft_rmlstsp(main->fcnt[i], main))
-		i--;
-	return (i);
-}
-
-bool	getmap(int last,t_main *main)
+bool	getmap(int last, t_main *main)
 {
 	int	end;
 	int	i;
 
 	i = 0;
 	end = end_map(main);
-	if(end <= last)
+	if (end <= last)
 		return (false);
 	main->map->content = ft_malloc(main, ((end - last) + 2) * sizeof(char *));
 	if (!main->map->content)
 		return (false);
-	while(end >= last)
+	while (end >= last)
 	{
 		main->map->content[i] = ft_rmlstspmap(main->fcnt[last], main);
 		i++;
@@ -45,17 +34,18 @@ bool	getmap(int last,t_main *main)
 	return (true);
 }
 
-bool validchr(char c, t_main *main) {
-	if(c == '0' || c == '1' || c == ' ')
+bool	validchr(char c, t_main *main)
+{
+	if (c == '0' || c == '1' || c == ' ')
 		return (true);
-	if(c == 'N' || c == 'S' || c == 'E' || c == 'W')
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 	{
-		if(main->map->player)
+		if (main->map->player)
 			return (false);
 		main->map->player = c;
 		return (true);
 	}
-    return (false);
+	return (false);
 }
 
 bool	vld_map(t_main *main)
@@ -66,22 +56,16 @@ bool	vld_map(t_main *main)
 
 	map = main->map->content;
 	x = 0;
-	while(map[x])
-	{	
+	while (map[x])
+	{
 		y = 0;
-		while(map[x][y])
+		while (map[x][y])
 		{
-			if(!validchr(map[x][y], main))
+			if (!validchr(map[x][y], main))
 				return (false);
-			if(map[x][y] == '0')
+			if (map[x][y] == '0')
 			{
-				if(!check_up(map, x, y))
-					return (false);
-				if(!check_down(map, x, y))
-					return (false);
-				if(!check_left(map, x, y))
-					return (false);
-				if(!check_right(map, x, y))
+				if (!map_checker(map, x, y))
 					return (false);
 			}
 			y++;
@@ -90,18 +74,18 @@ bool	vld_map(t_main *main)
 	}
 	return (true);
 }
-bool	init_map(int last,t_main *main)
+
+bool	init_map(int last, t_main *main)
 {
+	int	i;
+
+	i = 0;
 	main->map = ft_malloc(main, sizeof(t_map));
 	main->map->player = 0;
 	if (!main->map)
 		return (false);
 	if (!getmap(last, main))
 		return (false);
-	for (int i = 0; main->map->content[i]; i++)
-	{
-		printf("%s\n", main->map->content[i]);	
-	}
 	if (!main->map->content)
 		return (false);
 	if (!vld_map(main))
@@ -111,7 +95,7 @@ bool	init_map(int last,t_main *main)
 	return (true);
 }
 
-bool    parsemap(int last, t_main *main)
+bool	parsemap(int last, t_main *main)
 {
 	while (is_allwspace(main->fcnt[last]))
 		last++;

@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/19 17:10:25 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/20 09:44:29 by moel-oua         ###   ########.fr       */
+/*   Created: 2025/07/19 17:15:27 by moel-oua          #+#    #+#             */
+/*   Updated: 2025/09/14 10:03:55 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-size_t	ft_strlen(const char *str)
+char	*ft_substr(char *s, unsigned int start, size_t len, t_main *main)
 {
-	size_t i;
+	char	*sub;
+	size_t	s_len;
 
-	if(!str || !*str)
-		return (0);
-	i = 0;
-	while(str[i])
-	{
-		i++;
-	}
-	return (i);
-		
+	s_len = ft_strlen(s);
+	if (!s)
+		return (NULL);
+	if (start >= s_len)
+		return (NULL);
+	if (len > s_len - start)
+		len = s_len - start;
+	sub = (char *)ft_malloc(main, sizeof(char) * (len + 1));
+	if (sub == NULL)
+		return (NULL);
+	ft_memcpy(sub, s + start, len);
+	sub[len] = '\0';
+	return (sub);
 }

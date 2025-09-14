@@ -6,13 +6,13 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 17:03:57 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/22 11:50:48 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 10:32:03 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-char *formating(char *path, t_main *main)
+char	*formating(char *path, t_main *main)
 {
 	int	start;
 	int	end;
@@ -35,24 +35,23 @@ char *formating(char *path, t_main *main)
 	return (path);
 }
 
-
 bool	valid_ext(char *path, t_main *main)
 {
 	char	*ext;
 	size_t	i;
 
 	i = ft_strlen(path) - 1;
-	while(i > 0 && path[i] != '.')
+	while (i > 0 && path[i] != '.')
 		i--;
-	if(i + 4 < ft_strlen(path))
+	if (i + 4 < ft_strlen(path))
 	{
 		ft_putstr_fd("Error\nInvalid Map Extension\n", 2);
 		return (false);
 	}
 	ext = ft_substr(path, i, i + 4, main);
-	if(!ext)
+	if (!ext)
 		return (false);
-	if(ft_strcmp(".cub", ext))
+	if (ft_strcmp(".cub", ext))
 	{
 		ft_putstr_fd("Error\nInvalid Map Extension\n", 2);
 		return (false);
@@ -67,12 +66,12 @@ size_t	bfr_size(int fd, t_main *main)
 
 	line = gnl(fd, main);
 	c_lines = 0;
-	while(line)
-	{	
+	while (line)
+	{
 		c_lines++;
 		line = gnl(fd, main);
-		if(!line)
-			break;
+		if (!line)
+			break ;
 	}
 	return (c_lines);
 }
@@ -81,58 +80,29 @@ bool	addcnt(int fd, t_main *main)
 {
 	char	*line;
 	size_t	c_lines;
+
 	line = gnl(fd, main);
-	if(!line)
+	if (!line)
 		return (false);
 	c_lines = 0;
-	while(line)
-	{	
+	while (line)
+	{
 		main->fcnt[c_lines] = line;
 		c_lines++;
 		line = gnl(fd, main);
-		if(!line)
-			break;
+		if (!line)
+			break ;
 	}
 	main->fcnt[c_lines] = NULL;
 	return (true);
 }
 
-bool	valid_path(char *path, t_main *main)
-{
-	int		fd;
-	size_t	size;
-
-	fd = open(path, O_RDONLY);
-	if(fd == -1)
-	{
-		ft_putstr_fd("Error\nBad Texture File\n", 2);
-		return (false);
-	}
-	size = bfr_size(fd, main);
-	if(size == 0)
-	{
-		ft_putstr_fd("Error\nEmpty file\n", 2);
-		return (false);
-	}
-	main->fcnt  = ft_malloc(main, (size + 1) * sizeof(char *));
-	if(!main->fcnt)
-		return (false);
-	close(fd);
-	fd = open(path, O_RDONLY);
-	if(fd == -1)
-		return (false);
-	if (!addcnt(fd, main))
-		return (false);
-	close(fd);
-	return (true);
-}
-
-bool	file(char **dc , t_main *main)
+bool	file(char **dc, t_main *main)
 {
 	char	*frmt;
 
 	frmt = formating(dc[1], main);
-	if(!frmt && ft_strlen(frmt))
+	if (!frmt && ft_strlen(frmt))
 		return (false);
 	if (!valid_ext(frmt, main))
 		return (false);

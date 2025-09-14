@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_countchr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/19 17:15:27 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/19 17:51:15 by moel-oua         ###   ########.fr       */
+/*   Created: 2025/07/20 17:53:58 by moel-oua          #+#    #+#             */
+/*   Updated: 2025/09/14 10:05:04 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-char	*ft_substr(char *s, unsigned int start, size_t len, t_main *main)
+int	ft_countchr(char chr, char *str)
 {
-	char	*sub;
-	size_t	s_len;
+	int	i;
+	int	count;
 
-	s_len = ft_strlen(s);
-	if (!s)
-		return (NULL);
-	if (start >= s_len)
-		return (NULL);
-	if (len > s_len - start)
-		len = s_len - start;
-	sub = (char *)ft_malloc(main, sizeof(char) * (len + 1));
-	if (sub == NULL)
-		return (NULL);
-	ft_memcpy(sub, s + start, len);
-	sub[len] = '\0';
-	return (sub);
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == chr)
+			count++;
+		i++;
+	}
+	return (count);
 }

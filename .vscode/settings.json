@@ -22,6 +22,8 @@
         "__bit_reference": "c",
         "ios": "c",
         "chrono": "c",
-        "__locale": "c"
-    }
+        "__locale": "c",
+        "math.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_whitespaces.c                                   :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/19 18:06:23 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/22 09:10:42 by moel-oua         ###   ########.fr       */
+/*   Created: 2025/07/20 11:46:15 by moel-oua          #+#    #+#             */
+/*   Updated: 2025/09/14 10:04:49 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-bool	ft_whitespaces(char chr)
+int	ft_isdigit(int c)
 {
-	if ((chr >= 9 && chr <= 13) || (chr == ' '))
-		return (true);
-	return (false);
-}
-
-bool	is_allwspace(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	if(!str)
-		return (NULL);
-	while(ft_whitespaces(str[i]))
-		i++;
-	if(i == ft_strlen(str))
+	if (c >= '0' && c <= '9')
 		return (true);
 	return (false);
 }

@@ -6,57 +6,66 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 19:34:54 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/21 19:48:29 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 10:11:44 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-bool    check_up(char **map, int x, int y)
+bool	check_up(char **map, int x, int y)
 {
-	while(x >= 0)
+	while (x >= 0)
 	{
-		if((int)ft_strlen(map[x]) >= y && map[x][y] == '1')
+		if ((int)ft_strlen(map[x]) >= y && map[x][y] == '1')
 			return (true);
 		x--;
 	}
-	return (false);	
+	return (false);
 }
 
-bool    check_down(char **map, int x, int y)
+bool	check_down(char **map, int x, int y)
 {
-	while(map[x])
+	while (map[x])
 	{
-		if((int)ft_strlen(map[x]) >= y && map[x][y] == '1')
+		if ((int)ft_strlen(map[x]) >= y && map[x][y] == '1')
 			return (true);
 		x++;
 	}
-	return (false);	
+	return (false);
 }
 
-bool    check_left(char **map, int x, int y)
+bool	check_left(char **map, int x, int y)
 {
-	if(!map && !*map)
+	if (!map && !*map)
 		return (false);
-	while(map[x][y])
+	while (map[x][y])
 	{
-		if((int)ft_strlen(map[x]) >= y && map[x][y] == '1')
+		if ((int)ft_strlen(map[x]) >= y && map[x][y] == '1')
 			return (true);
 		y++;
 	}
-	return (false);	
+	return (false);
 }
 
-bool    check_right(char **map, int x, int y)
+bool	check_right(char **map, int x, int y)
 {
-	if(!map && !*map)
+	if (!map && !*map)
 		return (false);
-	while(map[x][y])
+	while (map[x][y])
 	{
-		if((int)ft_strlen(map[x]) >= y && map[x][y] == '1')
+		if ((int)ft_strlen(map[x]) >= y && map[x][y] == '1')
 			return (true);
 		y--;
 	}
-	return (false);	
+	return (false);
 }
 
+int	end_map(t_main *main)
+{
+	int	i;
+
+	i = ft_dplen(main->fcnt) - 1;
+	while (i > 0 && !ft_rmlstsp(main->fcnt[i], main))
+		i--;
+	return (i);
+}

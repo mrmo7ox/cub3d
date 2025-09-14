@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_urtils.c                                      :+:      :+:    :+:   */
+/*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 15:42:30 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/28 12:53:23 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 10:56:27 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,72 @@
 
 void	draw_pxl(t_data *img, int x, int y, int clr)
 {
-	if(x < 0 || x >= WIDTH || y < 0|| y >= HEIGHT)
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 		return ;
-	my_mlx_pixel_put(img, x , y , clr);	
+	my_mlx_pixel_put(img, x, y, clr);
 }
 
-void	draw_sq(t_data *img ,size_t start_x , size_t start_y, size_t size, int color)
+void	draw_square_row(t_data *img, t_square_params *params, size_t current_y)
 {
-	size_t dx = start_x + size;
-	size_t dy = start_y + size;
-	size_t x = start_x;
+	size_t	current_x;
+	size_t	end_x;
 
-	while(start_y < dy)
+	current_x = params->start_x;
+	end_x = params->start_x + params->size;
+	while (current_x < end_x)
 	{
-		start_x = x;
-		while(start_x < dx)
-			draw_pxl(img, start_x++ , start_y, color);
-		start_y++;
-	}	
-}
-
-
-void	draw_line(t_main *main , double s_x, double s_y, double len, double angle,int color)
-{
-	double	end_x = s_x + cos(angle) * len;
-	double	end_y = s_y + sin(angle) * len;
-	double		dx = (end_x) - s_x;
-	double		dy = (end_y) - s_y;
-	double		step;
-	double		incx;
-	double		incy;
-	double		i = 0;
-	if(fabs(dx) > fabs(dy))
-		step = fabs(dx);
-	else
-		step = fabs(dy);
-	incx = dx / step;
-	incy = dy / step;
-	while(i <= step)
-	{
-		draw_pxl(main->img, s_x, s_y, color);
-		i++;
-		s_x += incx;
-		s_y += incy;
+		draw_pxl(img, current_x, current_y, params->color);
+		current_x++;
 	}
-	
 }
 
+void	draw_sq(t_data *img, t_square_params *params)
+{
+	size_t	current_y;
+	size_t	end_y;
+
+	current_y = params->start_y;
+	end_y = params->start_y + params->size;
+	while (current_y < end_y)
+	{
+		draw_square_row(img, params, current_y);
+		current_y++;
+	}
+}
+
+void	init_line_data(t_line_params *params, double *incx, double *incy,
+		double *step)
+{
+	double	end_x;
+	double	end_y;
+	double	dx;
+	double	dy;
+
+	end_x = params->start_x + cos(params->angle) * params->len;
+	end_y = params->start_y + sin(params->angle) * params->len;
+	dx = end_x - params->start_x;
+	dy = end_y - params->start_y;
+	if (fabs(dx) > fabs(dy))
+		*step = fabs(dx);
+	else
+		*step = fabs(dy);
+	*incx = dx / *step;
+	*incy = dy / *step;
+}
+
+void	draw_line(t_main *main, t_line_params *params)
+{
+	t_line_vars	vars;
+
+	init_line_data(params, &vars.incx, &vars.incy, &vars.step);
+	vars.i = 0;
+	vars.current_x = params->start_x;
+	vars.current_y = params->start_y;
+	while (vars.i <= vars.step)
+	{
+		draw_pxl(main->img, vars.current_x, vars.current_y, params->color);
+		vars.i++;
+		vars.current_x += vars.incx;
+		vars.current_y += vars.incy;
+	}
+}

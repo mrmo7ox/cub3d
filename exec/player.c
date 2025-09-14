@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 13:51:17 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/13 21:33:05 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 10:50:59 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ bool	player_pos(t_main *main)
 		{
 			if (main->map->content[y][x] == main->map->player)
 			{
-				main->p->x = x + (main->map->tsize / 2) / main->map->tsize;
-				main->p->y = y + (main->map->tsize / 4) / main->map->tsize;
+				main->p->x = x;
+				main->p->y = y;
 				return (true);
 			}
 			x++;
@@ -78,17 +78,20 @@ bool	init_player(t_main *main)
 
 void	draw_player(t_main *main)
 {
-	double	px;
-	double	py;
+	double			px;
+	double			py;
+	t_square_params	sq_params;
 
-	px = main->p->x * main->map->tsize;
-	py = main->p->y * main->map->tsize;
-	draw_sq(main->img, px, py, main->p->size, 0xfc0398);
+	sq_params.size = main->p->size / 2;
+	sq_params.start_x = main->p->x * main->map->tsize;
+	sq_params.start_y = main->p->y * main->map->tsize;
+	sq_params.color = 0xfc0398;
+	draw_sq(main->img, &sq_params);
 }
 
 void	set_player_angle(t_main *main)
 {
-	char player;
+	char	player;
 
 	player = main->map->player;
 	if (player == 'S')

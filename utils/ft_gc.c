@@ -6,12 +6,11 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 17:19:41 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/22 09:31:22 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 10:05:01 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
-
 
 t_gc	*ft_newgc(void *addres)
 {
@@ -36,11 +35,10 @@ bool	ft_addgc(t_gc **head, t_gc *node)
 		*head = node;
 		return (true);
 	}
-
 	last = *head;
-	while(last->next)
+	while (last->next)
 		last = last->next;
-	if(!last)
+	if (!last)
 	{
 		return (false);
 	}
@@ -55,7 +53,7 @@ void	*ft_malloc(t_main *main, size_t size)
 	el = malloc(size);
 	if (!el)
 		return (NULL);
-	if(!ft_addgc(main->gc, ft_newgc(el)))
+	if (!ft_addgc(main->gc, ft_newgc(el)))
 	{
 		free(el);
 		return (NULL);
@@ -63,19 +61,19 @@ void	*ft_malloc(t_main *main, size_t size)
 	return (el);
 }
 
-void   ft_cleangc(t_gc **head)
+void	ft_cleangc(t_gc **head)
 {
 	t_gc	*tmp;
 	t_gc	*next;
 
-	if(!*head || !head)
+	if (!*head || !head)
 		return ;
 	tmp = *head;
-	while(tmp)
+	while (tmp)
 	{
 		next = tmp->next;
 		free(tmp->addres);
 		free(tmp);
- 		tmp = next;
+		tmp = next;
 	}
 }

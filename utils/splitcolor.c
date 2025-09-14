@@ -6,12 +6,11 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:29:10 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/07/20 15:33:17 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 10:03:30 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
-
 
 static void	ft_copy(char *dest, char *src, int len)
 {
@@ -68,7 +67,7 @@ char	**ft_split(char *str, t_main *main, int i, int j)
 			res[words] = ft_malloc(main, sizeof(char) * ((i - j) + 1));
 			if (!res[words])
 				return (NULL);
-			(ft_copy (res[words], &str[j], (i - j)), words++);
+			(ft_copy(res[words], &str[j], (i - j)), words++);
 		}
 	}
 	return (res[words] = NULL, res);
