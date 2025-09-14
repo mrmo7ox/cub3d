@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 13:51:17 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 10:50:59 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 14:02:49 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ bool	init_player(t_main *main)
 
 void	draw_player(t_main *main)
 {
-	double			px;
-	double			py;
 	t_square_params	sq_params;
 
 	sq_params.size = main->p->size / 2;

@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 10:36:51 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 10:41:34 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 13:50:12 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,15 @@ void	draw_floor(t_main *main, int i, int draw_end)
 	}
 }
 
-void	draw_wall(t_main *main, int i, t_draw_data *data)
+unsigned int	get_pixel_color(t_txtr_cnt *texture, int x, int y)
 {
-	int	y;
+	char *dst;
+	int offset;
 
-	y = data->draw_start;
-	while (y <= data->draw_end)
-	{
-		draw_pxl(main->img, i, y, data->color);
-		y++;
-	}
-}
-
-void	draw_columns(t_main *main, int i, t_draw_data *data)
-{
-	draw_ceiling(main, i, data->draw_start);
-	draw_wall(main, i, data);
-	draw_floor(main, i, data->draw_end);
+	if (!texture || !texture->addr || x < 0 || x >= texture->width || y < 0
+		|| y >= texture->height)
+		return (0xFF0000);
+	offset = y * texture->line_length + x * (texture->bits_per_pixel / 8);
+	dst = texture->addr + offset;
+	return (*(unsigned int *)dst);
 }

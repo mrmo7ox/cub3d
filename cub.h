@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:58:13 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 10:56:35 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 14:01:32 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,16 @@ typedef struct s_textures
 	char			*ea;
 	bool			done;
 }					t_txtrs;
+typedef struct s_txtr_cnt
+{
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	int				width;
+	int				height;
+}					t_txtr_cnt;
 
 typedef struct s_clrs
 {
@@ -194,6 +204,7 @@ typedef struct s_main
 	t_keys			*keys;
 	t_dist			**dist;
 	t_rays			**rays;
+	t_txtr_cnt		**txts_cnt;
 }					t_main;
 
 typedef struct s_minimap_data
@@ -231,6 +242,16 @@ typedef struct s_line_vars
 	double			current_x;
 	double			current_y;
 }					t_line_vars;
+
+// load textures
+bool				load_textures(t_main *main);
+void				clean_textures(t_main *main);
+unsigned int		get_pixel_color(t_txtr_cnt *texture, int x, int y);
+t_txtr_cnt			*get_wall_texture(t_main *main, int i);
+void				draw_textured_wall(t_main *main, t_txtr_cnt *texture, int i,
+						t_draw_data *data);
+double				calculate_wall_x(t_rays *ray, t_main *main);
+int					clamp_tex_x(int tex_x, int texture_width);
 
 // map
 bool				file(char **dc, t_main *main);
@@ -313,14 +334,16 @@ bool				check_down(char **map, int x, int y);
 bool				check_left(char **map, int x, int y);
 bool				check_right(char **map, int x, int y);
 char				*ft_rmlstspmap(char *str, t_main *main);
+char				*formating(char *path, t_main *main);
 // textures and colors and map and file utils
 bool				txturs_test(char *path, char **txtvar);
-bool				chckadd_txtrs(char **splited, t_main *main);
+bool				chckadd_txtrs(char **splited, char *original, t_main *main);
 bool				clrs_txtrs_done(t_main *main);
 int					end_map(t_main *main);
 bool				map_checker(char **map, int x, int y);
 bool				valid_path(char *path, t_main *main);
 size_t				bfr_size(int fd, t_main *main);
 bool				addcnt(int fd, t_main *main);
+bool				valid_ext(char *path, t_main *main, char *ext_cmp);
 
 #endif

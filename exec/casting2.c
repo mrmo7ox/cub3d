@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:18:27 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/13 21:41:23 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 14:02:03 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	perform_dda(t_main *main, t_raycast *rc)
 			rc->map_y += rc->step_y;
 			rc->side = 1;
 		}
-		if (rc->map_x < 0 || rc->map_x >= ft_strlen(main->map->content[0])
-			|| rc->map_y < 0 || rc->map_y >= ft_dplen(main->map->content))
+		if (rc->map_x < 0 || rc->map_x >= (int)ft_strlen(main->map->content[0])
+			|| rc->map_y < 0 || rc->map_y >= (int)ft_dplen(main->map->content))
 		{
 			rc->hit = 1;
 			break ;

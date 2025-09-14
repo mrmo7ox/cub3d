@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 10:06:27 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 10:10:24 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 14:01:49 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,39 @@ bool	txturs_test(char *path, char **txtvar)
 	return (true);
 }
 
-bool	chckadd_txtrs(char **splited, t_main *main)
+char	*orignal_path(t_main *main, char *str)
+{
+	str = formating(str, main);
+	if (!str)
+		return (NULL);
+	str += 2;
+	if (!str)
+		return (NULL);
+	str = formating(str, main);
+	if (!str)
+		return (NULL);
+	if (!valid_ext(str, main, ".xpm"))
+		return (NULL);
+	return (str);
+}
+bool	chckadd_txtrs(char **splited, char *original, t_main *main)
 {
 	if (!main->txtrs->done)
 	{
-		if (!main->txtrs || ft_dplen(splited) != 2)
+		if (!main->txtrs || ft_dplen(splited) < 2)
 			return (false);
 		else if (!ft_strcmp("SO", splited[0]))
-			return (txturs_test(splited[1], &main->txtrs->so));
+			return (txturs_test(orignal_path(main, original),
+					&main->txtrs->so));
 		else if (!ft_strcmp("NO", splited[0]))
-			return (txturs_test(splited[1], &main->txtrs->no));
+			return (txturs_test(orignal_path(main, original),
+					&main->txtrs->no));
 		else if (!ft_strcmp("WE", splited[0]))
-			return (txturs_test(splited[1], &main->txtrs->we));
+			return (txturs_test(orignal_path(main, original),
+					&main->txtrs->we));
 		else if (!ft_strcmp("EA", splited[0]))
-			return (txturs_test(splited[1], &main->txtrs->ea));
+			return (txturs_test(orignal_path(main, original),
+					&main->txtrs->ea));
 	}
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 12:43:41 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 10:52:28 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 14:03:29 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	draw(t_main *main)
 			&main->img->endian);
 	cast(main);
 	render(main);
-	minimap(main);
-	draw_player(main);
-	render_rays(main);
+	// minimap(main);
+	// draw_player(main);
+	// render_rays(main);
 	mlx_put_image_to_window(main->vars->mlx, main->vars->win, main->img->img, 0,
 		0);
 	mlx_destroy_image(main->vars->mlx, main->img->img);
@@ -33,9 +33,6 @@ bool	init_res(t_main *main)
 {
 	t_vars	*vars;
 	t_data	*img;
-	int		max_map_width;
-	int		map_height;
-	int		row_width;
 
 	vars = ft_malloc(main, sizeof(t_vars));
 	img = ft_malloc(main, sizeof(t_data));
@@ -57,9 +54,17 @@ void	run(t_main *main)
 	main->vars->mlx = mlx_init();
 	if (!main->vars->mlx)
 		return ;
+	if (!load_textures(main))
+	{
+		clean_textures(main);
+		return ;
+	}
 	main->vars->win = mlx_new_window(main->vars->mlx, WIDTH, HEIGHT, TITLE);
 	if (!main->vars->win)
+	{
+		clean_textures(main);
 		return ;
+	}
 	draw(main);
 	hooks_handler(main);
 	mlx_loop(main->vars->mlx);

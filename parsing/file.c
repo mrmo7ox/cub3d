@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 17:03:57 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 10:32:03 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 12:01:52 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*formating(char *path, t_main *main)
 	return (path);
 }
 
-bool	valid_ext(char *path, t_main *main)
+bool	valid_ext(char *path, t_main *main, char *ext_cmp)
 {
 	char	*ext;
 	size_t	i;
@@ -45,15 +45,15 @@ bool	valid_ext(char *path, t_main *main)
 		i--;
 	if (i + 4 < ft_strlen(path))
 	{
-		ft_putstr_fd("Error\nInvalid Map Extension\n", 2);
+		ft_putstr_fd("Error\nInvalid Extension\n", 2);
 		return (false);
 	}
 	ext = ft_substr(path, i, i + 4, main);
 	if (!ext)
 		return (false);
-	if (ft_strcmp(".cub", ext))
+	if (ft_strcmp(ext_cmp, ext))
 	{
-		ft_putstr_fd("Error\nInvalid Map Extension\n", 2);
+		ft_putstr_fd("Error\nInvalid Extension\n", 2);
 		return (false);
 	}
 	return (true);
@@ -104,7 +104,7 @@ bool	file(char **dc, t_main *main)
 	frmt = formating(dc[1], main);
 	if (!frmt && ft_strlen(frmt))
 		return (false);
-	if (!valid_ext(frmt, main))
+	if (!valid_ext(frmt, main, ".cub"))
 		return (false);
 	if (!valid_path(frmt, main))
 		return (false);

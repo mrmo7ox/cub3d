@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 13:25:37 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/13 16:28:45 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 13:34:22 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	close_win(t_main *main)
 {
 	if (main->img->img)
 		mlx_destroy_image(main->vars->mlx, main->img->img);
+	clean_textures(main);
 	mlx_destroy_window(main->vars->mlx, main->vars->win);
 	ft_cleangc(main->gc);
 	exit(1);

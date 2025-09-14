@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:27:46 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 10:47:48 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 14:02:24 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	process_minimap_row(t_main *main, int y, int iy)
 {
 	t_minimap_data	data;
 	int				x;
-	int				ix;
+	size_t			ix;
 
 	x = 0;
 	ix = 0;
@@ -57,8 +57,8 @@ void	process_minimap_row(t_main *main, int y, int iy)
 
 void	minimap(t_main *main)
 {
-	int	y;
-	int	iy;
+	size_t	y;
+	size_t	iy;
 
 	y = 0;
 	iy = 0;

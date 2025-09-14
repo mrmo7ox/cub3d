@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 17:03:49 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 10:42:29 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 13:56:58 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,16 @@ int	get_wall_color(t_rays *ray)
 	}
 }
 
-void	render_column(t_main *main, int i)
+void	render_textured_column(t_main *main, int i)
 {
 	t_draw_data	data;
+	t_txtr_cnt	*texture;
 
 	calculate_wall_projection(main, i, &data);
-	data.color = get_wall_color(main->rays[i]);
-	draw_columns(main, i, &data);
+	texture = get_wall_texture(main, i);
+	draw_textured_wall(main, texture, i, &data);
+	draw_ceiling(main, i, data.draw_start);
+	draw_floor(main, i, data.draw_end);
 }
 
 void	render(t_main *main)
@@ -59,7 +62,7 @@ void	render(t_main *main)
 	i = 0;
 	while (i < NBR_RAYS)
 	{
-		render_column(main, i);
+		render_textured_column(main, i);
 		i++;
 	}
 }

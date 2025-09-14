@@ -6,7 +6,7 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 10:17:48 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 10:31:12 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 12:00:13 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	valid_path(char *path, t_main *main)
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putstr_fd("Error\nBad Texture File\n", 2);
+		ft_putstr_fd("Error\nFile Doesn't Exist\n", 2);
 		return (false);
 	}
 	size = bfr_size(fd, main);

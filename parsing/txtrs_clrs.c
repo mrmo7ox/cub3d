@@ -6,15 +6,15 @@
 /*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 10:37:20 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 10:09:16 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/14 11:32:39 by moel-oua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-bool	check_add(char **splited, t_main *main)
+bool	check_add(char **splited, char *original, t_main *main)
 {
-	if (!chckadd_clrs(splited, main) && !chckadd_txtrs(splited, main))
+	if (!chckadd_clrs(splited, main) && !chckadd_txtrs(splited, original, main))
 	{
 		ft_putstr_fd("Error\nInvalid Colors or Textures\n", 2);
 		return (false);
@@ -48,7 +48,7 @@ bool	handle_texture_color_line(t_main *main, int i)
 	splited = ft_splitwhite(main->fcnt[i], main, 0, 0);
 	if (!splited)
 		return (false);
-	if (!check_add(splited, main))
+	if (!check_add(splited, main->fcnt[i], main))
 		return (false);
 	return (true);
 }
