@@ -35,10 +35,7 @@ bool	init_res(t_main *main)
 	img = ft_malloc(main, sizeof(t_data));
 	if (!vars || !img || !initkeys(main))
 		return (false);
-	main->map->tsize = floor(WIDTH / ft_strlen(main->map->content[0]))
-		* MINIMAP_SCALE;
-	main->map->width = ft_strlen(main->map->content[0]) * main->map->tsize;
-	main->map->height = ft_dplen(main->map->content) * main->map->tsize;
+	main->map->tsize = WIDTH / TSIZE;
 	main->vars = vars;
 	main->img = img;
 	return (true);

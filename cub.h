@@ -111,8 +111,6 @@ typedef struct s_clrs
 typedef struct s_map
 {
 	char			**content;
-	int				width;
-	int				height;
 	int				tsize;
 	char			player;
 }					t_map;

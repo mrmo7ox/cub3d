@@ -47,9 +47,9 @@ bool	init_player(t_main *main)
 	if (!player_pos(main))
 		return (false);
 	set_player_angle(main);
-	main->p->height = 5;
-	main->p->width = 5;
-	main->p->size = main->p->height * main->p->width * MINIMAP_SCALE;
+	main->p->height = 1;
+	main->p->width = 1;
+	main->p->size = main->p->height * main->p->width;
 	main->p->walk_speed = 0.08;
 	main->p->turn_speed = 2 * (M_PI / 180);
 	return (true);
