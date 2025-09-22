@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC      = cc
-CFLAGS  = #-fsanitize=address -g3 -Wall -Wextra -Werror 
+CFLAGS  = -Wall -Wextra -Werror 
 MFLAGS  =  -lmlx -lX11 -lXext -lm
 
 NAME    = cub
@@ -30,8 +30,6 @@ SRCS    = main.c $(PSRC) $(USRC) $(GNLSRC) $(ESEC)
 OBJS    = $(SRCS:.c=.o)
 
 all: $(NAME)
-	make clean
-	./cub maps/hi.cub
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(MFLAGS) -o $(NAME)
