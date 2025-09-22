@@ -12,25 +12,6 @@
 
 #include "../cub.h"
 
-bool	is_wall(t_main *main, double new_x, double new_y)
-{
-	int	map_width;
-	int	map_height;
-	int	top_left_x;
-	int	top_left_y;
-
-	map_width = ft_strlen(main->map->content[0]);
-	map_height = ft_dplen(main->map->content);
-	top_left_x = (int)floor(new_x / main->map->tsize);
-	top_left_y = (int)floor(new_y / main->map->tsize);
-	if (top_left_x < 0 || top_left_x >= map_width || top_left_y < 0
-		|| top_left_y >= map_height)
-		return (true);
-	if (main->map->content[top_left_y][top_left_x] == '1')
-		return (true);
-	return (false);
-}
-
 bool	player_pos(t_main *main)
 {
 	int	x;

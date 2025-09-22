@@ -268,7 +268,6 @@ void				draw_floor(t_main *main, int i, int draw_end);
 bool				init_player(t_main *main);
 int					player_move(t_main *main);
 double				normalize_angle(double angle);
-bool				is_wall(t_main *main, double new_x, double new_y);
 void				set_if_not_wall(t_main *main, double new_x, double new_y);
 bool				player_pos(t_main *main);
 void				set_player_angle(t_main *main);
