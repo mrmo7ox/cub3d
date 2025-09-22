@@ -25,8 +25,8 @@ bool	player_pos(t_main *main)
 		{
 			if (main->map->content[y][x] == main->map->player)
 			{
-				main->p->x = x;
-				main->p->y = y;
+				main->p->x = x + 0.5;
+				main->p->y = y + 0.5;
 				return (true);
 			}
 			x++;

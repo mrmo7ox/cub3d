@@ -14,8 +14,8 @@
 
 void	init_raycast(t_main *main, float ray_angle, t_raycast *rc)
 {
-	rc->player_x = main->p->x;
-	rc->player_y = main->p->y;
+	rc->player_x = main->p->x ;
+	rc->player_y = main->p->y ;
 	rc->ray_dir_x = cos(ray_angle);
 	rc->ray_dir_y = sin(ray_angle);
 	rc->map_x = (int)rc->player_x;
