@@ -38,8 +38,8 @@ void	draw_floor(t_main *main, int i, int draw_end)
 
 unsigned int	get_pixel_color(t_txtr_cnt *texture, int x, int y)
 {
-	char *dst;
-	int offset;
+	char	*dst;
+	int		offset;
 
 	if (!texture || !texture->addr || x < 0 || x >= texture->width || y < 0
 		|| y >= texture->height)

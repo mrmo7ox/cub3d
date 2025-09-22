@@ -41,6 +41,7 @@ char	*orignal_path(t_main *main, char *str)
 		return (NULL);
 	return (str);
 }
+
 bool	chckadd_txtrs(char **splited, char *original, t_main *main)
 {
 	if (!main->txtrs->done)

@@ -36,6 +36,8 @@ bool	txt_clrs_init(t_main *main)
 	main->txtrs->no = 0;
 	main->txtrs->so = 0;
 	main->txtrs->we = 0;
+	main->txtrs->done = false;
+	main->colors->done = false;
 	return (true);
 }
 

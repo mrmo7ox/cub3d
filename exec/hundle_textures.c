@@ -44,32 +44,37 @@ bool	add_imgs(t_main *main, t_txtr_cnt **txtrs_cnt)
 bool	load_textures(t_main *main)
 {
 	t_txtr_cnt	**txts_cnt;
+	int			i;
 
-	txts_cnt = ft_malloc(main, sizeof(t_txtr_cnt *) * 5);
+	txts_cnt = ft_malloc(main, sizeof(t_txtr_cnt *) * 4);
 	if (!txts_cnt)
 		return (false);
-	txts_cnt[0] = ft_malloc(main, sizeof(t_txtr_cnt));
-	txts_cnt[1] = ft_malloc(main, sizeof(t_txtr_cnt));
-	txts_cnt[2] = ft_malloc(main, sizeof(t_txtr_cnt));
-	txts_cnt[3] = ft_malloc(main, sizeof(t_txtr_cnt));
-	txts_cnt[4] = NULL;
-	if (!txts_cnt[0] || !txts_cnt[1] || !txts_cnt[2] || !txts_cnt[3])
-		return (false);
+	i = 0;
+	while (i < 4)
+	{
+		txts_cnt[i] = ft_malloc(main, sizeof(t_txtr_cnt));
+		if (!txts_cnt[i])
+			return (false);
+		txts_cnt[i]->img = NULL;
+		txts_cnt[i]->addr = NULL;
+		i++;
+	}
 	if (!add_imgs(main, txts_cnt))
 		return (false);
+	main->txts_cnt = txts_cnt;
 	return (true);
 }
 
 void	clean_textures(t_main *main)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (main->txts_cnt)
 	{
-		while (main->txts_cnt[i])
+		while (i < 4)
 		{
-			if (main->txts_cnt[i]->img)
+			if (main->txts_cnt[i] && main->txts_cnt[i]->img)
 				mlx_destroy_image(main->vars->mlx, main->txts_cnt[i]->img);
 			i++;
 		}

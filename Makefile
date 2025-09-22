@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC      = cc
-CFLAGS  = -fsanitize=address -g3 -Wall -Wextra -Werror 
+CFLAGS  = #-fsanitize=address -g3 -Wall -Wextra -Werror 
 MFLAGS  =  -lmlx -lX11 -lXext -lm
 
 NAME    = cub
@@ -24,7 +24,7 @@ USRC    = utils/ft_rmlstsp.c utils/ft_countchr.c utils/splitcolor.c \
           utils/ft_strcmp.c utils/ft_whitespaces.c utils/ft_split.c
 PSRC    = parsing/file_utils.c parsing/map_checker.c parsing/txtrs_clrs_utils.c parsing/map_utils.c parsing/file.c parsing/txtrs_clrs.c \
           parsing/map.c parsing/colors.c
-ESEC    = exec/textures_utils.c exec/hundle_textures.c exec/render_utils.c exec/casting3.c exec/player_utils2.c exec/player_utils.c exec/casting2.c  exec/render.c exec/minimap.c exec/casting.c exec/player.c exec/utils.c exec/draw_utils.c exec/img_utils.c exec/hooks.c exec/run.c
+ESEC    = exec/textures_utils.c exec/hundle_textures.c exec/render_utils.c exec/casting3.c exec/player_utils2.c exec/player_utils.c exec/casting2.c  exec/render.c exec/casting.c exec/player.c exec/utils.c exec/draw_utils.c exec/img_utils.c exec/hooks.c exec/run.c
 
 SRCS    = main.c $(PSRC) $(USRC) $(GNLSRC) $(ESEC)
 OBJS    = $(SRCS:.c=.o)
@@ -32,6 +32,7 @@ OBJS    = $(SRCS:.c=.o)
 all: $(NAME)
 	make clean
 	./cub maps/hi.cub
+
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(MFLAGS) -o $(NAME)
 

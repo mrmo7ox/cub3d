@@ -33,34 +33,6 @@ bool	init_rays(t_main *main)
 	return (true);
 }
 
-void	render_rays(t_main *main)
-{
-	int				i;
-	double			px;
-	double			py;
-	t_line_params	params;
-
-	i = 0;
-	px = main->p->x * main->map->tsize + (main->p->width / 2);
-	py = main->p->y * main->map->tsize + (main->p->height / 2);
-	while (i < NBR_RAYS)
-	{
-		if (main->rays[i] && main->rays[i]->wallhitx > 0
-			&& main->rays[i]->wallhity > 0)
-		{
-			params.start_x = px;
-			params.start_y = py;
-			params.len = sqrt(pow(main->rays[i]->wallhitx - px, 2)
-					+ pow(main->rays[i]->wallhity - py, 2));
-			params.angle = atan2(main->rays[i]->wallhity - py,
-					main->rays[i]->wallhitx - px);
-			params.color = 0xFF0000;
-			draw_line(main, &params);
-		}
-		i++;
-	}
-}
-
 void	set_ray_direction(t_main *main, float ray_angle, int ray_id)
 {
 	main->rays[ray_id]->is_down = false;

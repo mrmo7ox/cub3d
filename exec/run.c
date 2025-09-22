@@ -20,9 +20,6 @@ void	draw(t_main *main)
 			&main->img->endian);
 	cast(main);
 	render(main);
-	// minimap(main);
-	// draw_player(main);
-	// render_rays(main);
 	mlx_put_image_to_window(main->vars->mlx, main->vars->win, main->img->img, 0,
 		0);
 	mlx_destroy_image(main->vars->mlx, main->img->img);
@@ -56,14 +53,12 @@ void	run(t_main *main)
 		return ;
 	if (!load_textures(main))
 	{
-		clean_textures(main);
-		return ;
+		close_win(main);
 	}
 	main->vars->win = mlx_new_window(main->vars->mlx, WIDTH, HEIGHT, TITLE);
 	if (!main->vars->win)
 	{
-		clean_textures(main);
-		return ;
+		close_win(main);
 	}
 	draw(main);
 	hooks_handler(main);

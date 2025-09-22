@@ -69,22 +69,9 @@ bool	init_player(t_main *main)
 	main->p->height = 5;
 	main->p->width = 5;
 	main->p->size = main->p->height * main->p->width * MINIMAP_SCALE;
-	main->p->turn_direction = 0;
-	main->p->walk_direction = 0;
 	main->p->walk_speed = 0.08;
 	main->p->turn_speed = 2 * (M_PI / 180);
 	return (true);
-}
-
-void	draw_player(t_main *main)
-{
-	t_square_params	sq_params;
-
-	sq_params.size = main->p->size / 2;
-	sq_params.start_x = main->p->x * main->map->tsize;
-	sq_params.start_y = main->p->y * main->map->tsize;
-	sq_params.color = 0xfc0398;
-	draw_sq(main->img, &sq_params);
 }
 
 void	set_player_angle(t_main *main)

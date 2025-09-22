@@ -1,7 +1,7 @@
-NO ./textures/enemy.xpm 
-SO ./textures/enemy.xpm
-WE ./textures/gold.xpm
-EA ./textures/bri cks.xpm
+NO ./textures/bri cks.xpm 
+SO ./textures/wall.xpm
+WE ./textures/enemy.xpm
+EA ./textures/wo od.xpm
 
 C 9,105,218
 F 255,255,255

@@ -124,8 +124,6 @@ typedef struct s_player
 	float			width;
 	float			size;
 	float			height;
-	int				turn_direction;
-	int				walk_direction;
 	float			rotation_angle;
 	float			walk_speed;
 	float			turn_speed;
@@ -260,15 +258,11 @@ bool				chckadd_clrs(char **splited, t_main *main);
 int					parse_color(char *color, t_main *main);
 bool				parsemap(int last, t_main *main);
 void				draw_line(t_main *main, t_line_params *params);
-double				torad(int angle);
-void				minimap(t_main *main);
 // render
 void				render(t_main *main);
 void				init_raycast(t_main *main, float ray_angle, t_raycast *rc);
 void				draw_ceiling(t_main *main, int i, int draw_start);
 void				draw_floor(t_main *main, int i, int draw_end);
-void				draw_wall(t_main *main, int i, t_draw_data *data);
-void				draw_columns(t_main *main, int i, t_draw_data *data);
 
 // player
 bool				init_player(t_main *main);
@@ -277,12 +271,10 @@ double				normalize_angle(double angle);
 bool				is_wall(t_main *main, double new_x, double new_y);
 void				set_if_not_wall(t_main *main, double new_x, double new_y);
 bool				player_pos(t_main *main);
-void				draw_player(t_main *main);
 void				set_player_angle(t_main *main);
 
 // ray casting
 bool				init_rays(t_main *main);
-void				render_rays(t_main *main);
 void				set_ray_direction(t_main *main, float ray_angle,
 						int ray_id);
 void				cast_ray(t_main *main, float ray_angle, int ray_id);
@@ -297,7 +289,6 @@ void				hooks_handler(t_main *main);
 
 // mxl hooks and img
 int					close_win(t_main *main);
-int					key_hook(int keycode, t_main *main);
 bool				initkeys(t_main *main);
 void				my_mlx_pixel_put(t_data *data, int x, int y, int color);
 

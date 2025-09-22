@@ -32,19 +32,24 @@ bool	initkeys(t_main *main)
 
 int	close_win(t_main *main)
 {
-	if (main->img->img)
+	if (main->img && main->img->img)
 		mlx_destroy_image(main->vars->mlx, main->img->img);
+	if (main->vars && main->vars->win)
+		mlx_destroy_window(main->vars->mlx, main->vars->win);
 	clean_textures(main);
-	mlx_destroy_window(main->vars->mlx, main->vars->win);
+	if (main->vars && main->vars->mlx)
+	{
+		mlx_destroy_display(main->vars->mlx);
+		free(main->vars->mlx);
+	}
 	ft_cleangc(main->gc);
-	exit(1);
+	exit(0);
 }
 
 int	keypress(int key_hook, t_main *main)
 {
 	t_keys	*keys;
 
-	printf("key code == %d\n", key_hook);
 	keys = main->keys;
 	if (key_hook == W)
 		keys->w = true;
