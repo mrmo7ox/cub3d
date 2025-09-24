@@ -26,16 +26,19 @@ bool	valid_path(char *path, t_main *main)
 	size = bfr_size(fd, main);
 	if (size == 0)
 	{
+		close(fd);
 		ft_putstr_fd("Error\nEmpty file\n", 2);
 		return (false);
 	}
 	main->fcnt = ft_malloc(main, (size + 1) * sizeof(char *));
 	if (!main->fcnt)
-		return (false);
+		return (close(fd), false);
 	close(fd);
 	fd = open(path, O_RDONLY);
-	if (fd == -1 || !addcnt(fd, main))
+	if (fd == -1)
 		return (false);
+	if (!addcnt(fd, main))
+		return (close(fd), false);
 	close(fd);
 	return (true);
 }

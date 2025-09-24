@@ -20,13 +20,12 @@
 # include <stdlib.h>
 # include <time.h>
 # include <unistd.h>
-# define TITLE "cub3d"
-# define WIDTH 800
-# define HEIGHT 800
+# define TITLE "cub3D"
+# define WIDTH 1920
+# define HEIGHT 1080
 # define FOV 60
 # define TSIZE 64
 # define NBR_RAYS WIDTH
-# define MINIMAP_SCALE 1
 
 enum
 {
@@ -301,6 +300,7 @@ char				*gnl(int fd, t_main *main);
 char				*ft_strdup(const char *source, t_main *main);
 
 // utils
+int					ft_countchr(char chr, char *str);
 size_t				ft_strlen(const char *str);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 char				*ft_substr(char *s, unsigned int start, size_t len,

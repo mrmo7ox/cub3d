@@ -27,22 +27,6 @@ void	calculate_wall_projection(t_main *main, int i, t_draw_data *data)
 		data->draw_end = HEIGHT - 1;
 }
 
-int	get_wall_color(t_rays *ray)
-{
-	if (ray->is_vert)
-	{
-		if (ray->is_left)
-			return (0xCC3333);
-		return (0x33CC33);
-	}
-	else
-	{
-		if (ray->is_up)
-			return (0x3333CC);
-		return (0xCCCC33);
-	}
-}
-
 void	render_textured_column(t_main *main, int i)
 {
 	t_draw_data	data;

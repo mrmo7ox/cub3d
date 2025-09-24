@@ -20,6 +20,8 @@ int	parse_color(char *color, t_main *main)
 	int		res;
 
 	res = 0;
+	if (ft_countchr(',' , color) != 2)
+		return (-1);
 	colors = ft_split(color, main, 0, 0);
 	if (ft_dplen(colors) != 3)
 		return (-1);
