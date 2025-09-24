@@ -19,34 +19,6 @@ void	draw_pxl(t_data *img, int x, int y, int clr)
 	my_mlx_pixel_put(img, x, y, clr);
 }
 
-void	draw_square_row(t_data *img, t_square_params *params, size_t current_y)
-{
-	size_t	current_x;
-	size_t	end_x;
-
-	current_x = params->start_x;
-	end_x = params->start_x + params->size;
-	while (current_x < end_x)
-	{
-		draw_pxl(img, current_x, current_y, params->color);
-		current_x++;
-	}
-}
-
-void	draw_sq(t_data *img, t_square_params *params)
-{
-	size_t	current_y;
-	size_t	end_y;
-
-	current_y = params->start_y;
-	end_y = params->start_y + params->size;
-	while (current_y < end_y)
-	{
-		draw_square_row(img, params, current_y);
-		current_y++;
-	}
-}
-
 void	init_line_data(t_line_params *params, double *incx, double *incy,
 		double *step)
 {

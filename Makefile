@@ -18,7 +18,7 @@ NAME    = cub
 HEADERS = cub.h
 
 GNLSRC  = gnl/get_next_line_utils.c gnl/get_next_line.c
-USRC    = utils/ft_rmlstsp.c utils/ft_countchr.c utils/splitcolor.c \
+USRC    = utils/ft_rmlstsp.c utils/splitcolor.c \
           utils/miniatoi.c utils/ft_putstr_fd.c utils/ft_strlen.c \
           utils/ft_gc.c utils/ft_substr.c utils/ft_memcpy.c \
           utils/ft_strcmp.c utils/ft_whitespaces.c utils/ft_split.c

@@ -281,7 +281,6 @@ void				cast(t_main *main);
 void				run(t_main *main);
 void				draw(t_main *main);
 void				draw_pxl(t_data *img, int x, int y, int clr);
-void				draw_sq(t_data *img, t_square_params *params);
 void				hooks_handler(t_main *main);
 
 // mxl hooks and img
@@ -313,9 +312,7 @@ bool				is_allwspace(char *str);
 char				**ft_splitwhite(char *str, t_main *main, int i, int j);
 size_t				ft_dplen(char **dp);
 int					miniatoi(const char *ptr);
-int					ft_isdigit(int c);
 char				**ft_split(char *str, t_main *main, int i, int j);
-int					ft_countchr(char chr, char *str);
 char				*ft_rmlstsp(char *str, t_main *main);
 bool				check_up(char **map, int x, int y);
 bool				check_down(char **map, int x, int y);
