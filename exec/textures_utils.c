@@ -38,15 +38,15 @@ void	draw_textured_wall(t_main *main, t_txtr_cnt *texture, int i,
 	int		y;
 
 	wall_x = calculate_wall_x(main->rays[i], main);
-	tex_x = (int)(wall_x * 60);
+	tex_x = (int)(wall_x * texture->width);
 	tex_x = clamp_tex_x(tex_x, texture->width);
 	step = 1.0 * texture->height / data->line_height;
 	tex_pos = (data->draw_start - HEIGHT / 2 + data->line_height / 2) * step;
 	y = data->draw_start;
 	while (y < data->draw_end)
 	{
-		draw_pxl(main->img, i, y, get_pixel_color(texture, tex_x,
-				(int)tex_pos & (texture->height - 1)));
+		draw_pxl(main->img, i, y, get_pixel_color(texture, tex_x, (int)tex_pos
+				% (texture->height - 1)));
 		tex_pos += step;
 		y++;
 	}
