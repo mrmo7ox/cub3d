@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/tmp/cub3d",
-      "program": "/tmp/cub3d/build/Debug/outDebug",
+      "cwd": "/home/yabounna/Desktop/next_push",
+      "program": "/home/yabounna/Desktop/next_push/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
