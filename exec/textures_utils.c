@@ -12,7 +12,7 @@
 
 #include "../cub.h"
 
-t_txtr_cnt	*get_wall_texture(t_main *main, int i)
+t_txtr_cnt	*get_mur_texture(t_main *main, int i)
 {
 	if (main->rays[i]->is_vert)
 	{
@@ -31,14 +31,14 @@ t_txtr_cnt	*get_wall_texture(t_main *main, int i)
 void	draw_textured_wall(t_main *main, t_txtr_cnt *texture, int i,
 		t_draw_data *data)
 {
-	double	wall_x;
+	double	mur_x;
 	int		tex_x;
 	double	step;
 	double	tex_pos;
 	int		y;
 
-	wall_x = calculate_wall_x(main->rays[i], main);
-	tex_x = (int)(wall_x * texture->width);
+	mur_x = calculate_mur_x(main->rays[i], main);
+	tex_x = (int)(mur_x * texture->width);
 	tex_x = clamp_tex_x(tex_x, texture->width);
 	step = 1.0 * texture->height / data->line_height;
 	tex_pos = (data->draw_start - HEIGHT / 2 + data->line_height / 2) * step;
@@ -52,16 +52,16 @@ void	draw_textured_wall(t_main *main, t_txtr_cnt *texture, int i,
 	}
 }
 
-double	calculate_wall_x(t_rays *ray, t_main *main)
+double	calculate_mur_x(t_rays *ray, t_main *main)
 {
-	double	wall_x;
+	double	mur_x;
 
 	if (ray->is_vert)
-		wall_x = main->p->y + ray->distance * sin(ray->ray_angle);
+		mur_x = main->p->y + ray->distance * sin(ray->ray_angle);
 	else
-		wall_x = main->p->x + ray->distance * cos(ray->ray_angle);
-	wall_x -= floor(wall_x);
-	return (wall_x);
+		mur_x = main->p->x + ray->distance * cos(ray->ray_angle);
+	mur_x -= floor(mur_x);
+	return (mur_x);
 }
 
 int	clamp_tex_x(int tex_x, int texture_width)

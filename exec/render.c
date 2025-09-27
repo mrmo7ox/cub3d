@@ -33,10 +33,10 @@ void	render_textured_column(t_main *main, int i)
 	t_txtr_cnt	*texture;
 
 	calculate_wall_projection(main, i, &data);
-	texture = get_wall_texture(main, i);
+	texture = get_mur_texture(main, i);
 	draw_textured_wall(main, texture, i, &data);
-	draw_ceiling(main, i, data.draw_start);
-	draw_floor(main, i, data.draw_end);
+	draw_plafond(main, i, data.draw_start);
+	draw_sol(main, i, data.draw_end);
 }
 
 void	render(t_main *main)

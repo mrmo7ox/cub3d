@@ -12,7 +12,7 @@
 
 #include "../cub.h"
 
-void	draw_ceiling(t_main *main, int i, int draw_start)
+void	draw_plafond(t_main *main, int i, int draw_start)
 {
 	int	y;
 
@@ -24,7 +24,7 @@ void	draw_ceiling(t_main *main, int i, int draw_start)
 	}
 }
 
-void	draw_floor(t_main *main, int i, int draw_end)
+void	draw_sol(t_main *main, int i, int draw_end)
 {
 	int	y;
 

@@ -242,10 +242,10 @@ typedef struct s_line_vars
 bool				load_textures(t_main *main);
 void				clean_textures(t_main *main);
 unsigned int		get_pixel_color(t_txtr_cnt *texture, int x, int y);
-t_txtr_cnt			*get_wall_texture(t_main *main, int i);
+t_txtr_cnt			*get_mur_texture(t_main *main, int i);
 void				draw_textured_wall(t_main *main, t_txtr_cnt *texture, int i,
 						t_draw_data *data);
-double				calculate_wall_x(t_rays *ray, t_main *main);
+double				calculate_mur_x(t_rays *ray, t_main *main);
 int					clamp_tex_x(int tex_x, int texture_width);
 
 // map
@@ -258,8 +258,8 @@ void				draw_line(t_main *main, t_line_params *params);
 // render
 void				render(t_main *main);
 void				init_raycast(t_main *main, float ray_angle, t_raycast *rc);
-void				draw_ceiling(t_main *main, int i, int draw_start);
-void				draw_floor(t_main *main, int i, int draw_end);
+void				draw_plafond(t_main *main, int i, int draw_start);
+void				draw_sol(t_main *main, int i, int draw_end);
 
 // player
 bool				init_player(t_main *main);
