@@ -24,27 +24,27 @@ bool	should_process_move(clock_t *last_time)
 }
 
 void	handle_movement_keys(t_main *main, double *move_step_x,
-		double *move_step_y, double move_speed)
+		double *move_step_y, double vitesse_mvt)
 {
 	if (main->keys->w)
 	{
-		*move_step_x += cos(main->p->rotation_angle) * move_speed;
-		*move_step_y += sin(main->p->rotation_angle) * move_speed;
+		*move_step_x += cos(main->p->rotation_angle) * vitesse_mvt;
+		*move_step_y += sin(main->p->rotation_angle) * vitesse_mvt;
 	}
 	if (main->keys->s)
 	{
-		*move_step_x -= cos(main->p->rotation_angle) * move_speed;
-		*move_step_y -= sin(main->p->rotation_angle) * move_speed;
+		*move_step_x -= cos(main->p->rotation_angle) * vitesse_mvt;
+		*move_step_y -= sin(main->p->rotation_angle) * vitesse_mvt;
 	}
 	if (main->keys->a)
 	{
-		*move_step_x += sin(main->p->rotation_angle) * move_speed;
-		*move_step_y -= cos(main->p->rotation_angle) * move_speed;
+		*move_step_x += sin(main->p->rotation_angle) * vitesse_mvt;
+		*move_step_y -= cos(main->p->rotation_angle) * vitesse_mvt;
 	}
 	if (main->keys->d)
 	{
-		*move_step_x -= sin(main->p->rotation_angle) * move_speed;
-		*move_step_y += cos(main->p->rotation_angle) * move_speed;
+		*move_step_x -= sin(main->p->rotation_angle) * vitesse_mvt;
+		*move_step_y += cos(main->p->rotation_angle) * vitesse_mvt;
 	}
 }
 
@@ -67,15 +67,15 @@ int	player_move(t_main *main)
 {
 	double			move_step_x;
 	double			move_step_y;
-	double			move_speed;
+	double			vitesse_mvt;
 	static clock_t	last_time = 0;
 
 	move_step_x = 0;
 	move_step_y = 0;
-	move_speed = main->p->walk_speed;
+	vitesse_mvt = main->p->walk_speed;
 	if (!should_process_move(&last_time))
 		return (0);
-	handle_movement_keys(main, &move_step_x, &move_step_y, move_speed);
+	handle_movement_keys(main, &move_step_x, &move_step_y, vitesse_mvt);
 	set_if_not_wall(main, main->p->x + move_step_x, main->p->y + move_step_y);
 	handle_rotation_keys(main);
 	draw(main);
