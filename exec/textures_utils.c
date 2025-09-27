@@ -28,7 +28,7 @@ t_txtr_cnt	*get_mur_texture(t_main *main, int i)
 	}
 }
 
-void	draw_textured_wall(t_main *main, t_txtr_cnt *texture, int i,
+void	draw_textured_mur(t_main *main, t_txtr_cnt *texture, int i,
 		t_draw_data *data)
 {
 	double	mur_x;
@@ -41,9 +41,9 @@ void	draw_textured_wall(t_main *main, t_txtr_cnt *texture, int i,
 	tex_x = (int)(mur_x * texture->width);
 	tex_x = clamp_tex_x(tex_x, texture->width);
 	step = 1.0 * texture->height / data->line_height;
-	tex_pos = (data->draw_start - HEIGHT / 2 + data->line_height / 2) * step;
-	y = data->draw_start;
-	while (y < data->draw_end)
+	tex_pos = (data->draw_debut - HEIGHT / 2 + data->line_height / 2) * step;
+	y = data->draw_debut;
+	while (y < data->draw_fin)
 	{
 		draw_pxl(main->img, i, y, get_pixel_color(texture, tex_x, (int)tex_pos
 				% (texture->height - 1)));

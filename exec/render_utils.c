@@ -12,23 +12,23 @@
 
 #include "../cub.h"
 
-void	draw_plafond(t_main *main, int i, int draw_start)
+void	draw_plafond(t_main *main, int i, int draw_debut)
 {
 	int	y;
 
 	y = 0;
-	while (y < draw_start)
+	while (y < draw_debut)
 	{
 		draw_pxl(main->img, i, y, main->colors->c);
 		y++;
 	}
 }
 
-void	draw_sol(t_main *main, int i, int draw_end)
+void	draw_sol(t_main *main, int i, int draw_fin)
 {
 	int	y;
 
-	y = draw_end + 1;
+	y = draw_fin + 1;
 	while (y < HEIGHT)
 	{
 		draw_pxl(main->img, i, y, main->colors->f);
