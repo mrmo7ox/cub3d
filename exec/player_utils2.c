@@ -6,7 +6,7 @@
 /*   By: yabounna <yabounna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:29:40 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/28 14:00:29 by yabounna         ###   ########.fr       */
+/*   Updated: 2025/09/28 14:06:22 by yabounna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,33 +28,33 @@ void	handle_movement_keys(t_main *main, double *move_step_x,
 {
 	if (main->keys->w)
 	{
-		*move_step_x += cos(main->p->rotation_angle) * vitesse_mvt;
-		*move_step_y += sin(main->p->rotation_angle) * vitesse_mvt;
+		*move_step_x += cos(main->p->angle_de_rotation) * vitesse_mvt;
+		*move_step_y += sin(main->p->angle_de_rotation) * vitesse_mvt;
 	}
 	if (main->keys->s)
 	{
-		*move_step_x -= cos(main->p->rotation_angle) * vitesse_mvt;
-		*move_step_y -= sin(main->p->rotation_angle) * vitesse_mvt;
+		*move_step_x -= cos(main->p->angle_de_rotation) * vitesse_mvt;
+		*move_step_y -= sin(main->p->angle_de_rotation) * vitesse_mvt;
 	}
 	if (main->keys->a)
 	{
-		*move_step_x += sin(main->p->rotation_angle) * vitesse_mvt;
-		*move_step_y -= cos(main->p->rotation_angle) * vitesse_mvt;
+		*move_step_x += sin(main->p->angle_de_rotation) * vitesse_mvt;
+		*move_step_y -= cos(main->p->angle_de_rotation) * vitesse_mvt;
 	}
 	if (main->keys->d)
 	{
-		*move_step_x -= sin(main->p->rotation_angle) * vitesse_mvt;
-		*move_step_y += cos(main->p->rotation_angle) * vitesse_mvt;
+		*move_step_x -= sin(main->p->angle_de_rotation) * vitesse_mvt;
+		*move_step_y += cos(main->p->angle_de_rotation) * vitesse_mvt;
 	}
 }
 
 void	handle_rotation_keys(t_main *main)
 {
 	if (main->keys->l)
-		main->p->rotation_angle -= main->p->turn_speed;
+		main->p->angle_de_rotation -= main->p->turn_speed;
 	if (main->keys->r)
-		main->p->rotation_angle += main->p->turn_speed;
-	main->p->rotation_angle = normalize_angle(main->p->rotation_angle);
+		main->p->angle_de_rotation += main->p->turn_speed;
+	main->p->angle_de_rotation = normalize_angle(main->p->angle_de_rotation);
 }
 
 void	handle_exit_key(t_main *main)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabounna <yabounna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 13:51:17 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 14:02:49 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/28 14:06:22 by yabounna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ void	set_player_angle(t_main *main)
 
 	player = main->map->player;
 	if (player == 'S')
-		main->p->rotation_angle = M_PI / 2;
+		main->p->angle_de_rotation = M_PI / 2;
 	else if (player == 'E')
-		main->p->rotation_angle = 0;
+		main->p->angle_de_rotation = 0;
 	else if (player == 'N')
-		main->p->rotation_angle = (3 * M_PI) / 2;
+		main->p->angle_de_rotation = (3 * M_PI) / 2;
 	else if (player == 'W')
-		main->p->rotation_angle = M_PI;
+		main->p->angle_de_rotation = M_PI;
 }

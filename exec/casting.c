@@ -6,7 +6,7 @@
 /*   By: yabounna <yabounna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:29:46 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/28 14:00:29 by yabounna         ###   ########.fr       */
+/*   Updated: 2025/09/28 14:06:22 by yabounna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	cast(t_main *main)
 		return ;
 	fov_rad = FOV * M_PI / 180.0;
 	ray_id = 0;
-	ray_angle = main->p->rotation_angle - (fov_rad / 2);
+	ray_angle = main->p->angle_de_rotation - (fov_rad / 2);
 	while (ray_id < NBR_RAYS)
 	{
 		if (!main->rays[ray_id])

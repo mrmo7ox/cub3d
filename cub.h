@@ -6,7 +6,7 @@
 /*   By: yabounna <yabounna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:58:13 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/28 14:00:29 by yabounna         ###   ########.fr       */
+/*   Updated: 2025/09/28 14:21:48 by yabounna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ typedef struct s_player
 	float			width;
 	float			size;
 	float			height;
-	float			rotation_angle;
+	float			angle_de_rotation;
 	float			walk_speed;
 	float			turn_speed;
 }					t_plr;
@@ -211,14 +211,6 @@ typedef struct s_minimap_data
 	int				iy;
 }					t_minimap_data;
 
-typedef struct s_square_params
-{
-	size_t			start_x;
-	size_t			start_y;
-	size_t			size;
-	int				color;
-}					t_square_params;
-
 typedef struct s_line_params
 {
 	double			start_x;
@@ -257,7 +249,8 @@ bool				parsemap(int last, t_main *main);
 void				draw_line(t_main *main, t_line_params *params);
 // render
 void				render(t_main *main);
-void				raycast_initial(t_main *main, float ray_angle, t_raycast *rc);
+void				raycast_initial(t_main *main,
+						float ray_angle, t_raycast *rc);
 void				draw_plafond(t_main *main, int i, int draw_debut);
 void				draw_sol(t_main *main, int i, int draw_fin);
 

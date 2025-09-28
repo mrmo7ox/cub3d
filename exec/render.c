@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabounna <yabounna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 17:03:49 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 13:56:58 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/28 14:06:22 by yabounna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	calculate_mur_projection(t_main *main, int i, t_draw_data *data)
 	double	perp_dist;
 
 	perp_dist = main->rays[i]->distance * cos(main->rays[i]->ray_angle
-			- main->p->rotation_angle);
+			- main->p->angle_de_rotation);
 	data->line_height = (int)(HEIGHT / perp_dist);
 	data->draw_debut = -(data->line_height) / 2 + HEIGHT / 2;
 	if (data->draw_debut < 0)
