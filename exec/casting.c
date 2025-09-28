@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   casting.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabounna <yabounna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 16:29:46 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 10:46:09 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/28 14:00:29 by yabounna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,19 @@ bool	init_rays(t_main *main)
 
 void	set_ray_direction(t_main *main, float ray_angle, int ray_id)
 {
-	main->rays[ray_id]->is_down = false;
-	main->rays[ray_id]->is_left = false;
-	main->rays[ray_id]->is_up = false;
-	main->rays[ray_id]->is_right = false;
+	main->rays[ray_id]->en_bas = false;
+	main->rays[ray_id]->a_gauche = false;
+	main->rays[ray_id]->en_haut = false;
+	main->rays[ray_id]->a_droit = false;
 	ray_angle = normalize_angle(ray_angle);
 	if (ray_angle > 0 && ray_angle < M_PI)
-		main->rays[ray_id]->is_down = true;
+		main->rays[ray_id]->en_bas = true;
 	else
-		main->rays[ray_id]->is_up = true;
+		main->rays[ray_id]->en_haut = true;
 	if (ray_angle < M_PI / 2 || ray_angle > 1.5 * M_PI)
-		main->rays[ray_id]->is_right = true;
+		main->rays[ray_id]->a_droit = true;
 	else
-		main->rays[ray_id]->is_left = true;
+		main->rays[ray_id]->a_gauche = true;
 }
 
 void	cast(t_main *main)

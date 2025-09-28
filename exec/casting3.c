@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   casting3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabounna <yabounna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 21:40:23 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/13 21:41:11 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/28 13:48:41 by yabounna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void	init_raycast(t_main *main, float ray_angle, t_raycast *rc)
+void	raycast_initial(t_main *main, float ray_angle, t_raycast *rc)
 {
 	rc->player_x = main->p->x;
 	rc->player_y = main->p->y;

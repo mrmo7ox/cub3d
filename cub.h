@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabounna <yabounna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 16:58:13 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 14:01:32 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/28 14:00:29 by yabounna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,11 +161,11 @@ typedef struct s_raycast
 	double			ray_dir_y;
 	int				map_x;
 	int				map_y;
-	double			side_dist_x;
-	double			side_dist_y;
+	double			cote_dist_x;
+	double			cote_dist_y;
 	double			delta_dist_x;
 	double			delta_dist_y;
-	double			perp_wall_dist;
+	double			perp_mur_dist;
 	int				step_x;
 	int				step_y;
 	int				hit;
@@ -179,10 +179,10 @@ typedef struct s_ray
 	float			wallhity;
 	float			distance;
 	bool			is_vert;
-	bool			is_up;
-	bool			is_down;
-	bool			is_left;
-	bool			is_right;
+	bool			en_haut;
+	bool			en_bas;
+	bool			a_gauche;
+	bool			a_droit;
 	int				hit_content;
 }					t_rays;
 
@@ -257,7 +257,7 @@ bool				parsemap(int last, t_main *main);
 void				draw_line(t_main *main, t_line_params *params);
 // render
 void				render(t_main *main);
-void				init_raycast(t_main *main, float ray_angle, t_raycast *rc);
+void				raycast_initial(t_main *main, float ray_angle, t_raycast *rc);
 void				draw_plafond(t_main *main, int i, int draw_debut);
 void				draw_sol(t_main *main, int i, int draw_fin);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moel-oua <moel-oua@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabounna <yabounna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 13:51:52 by moel-oua          #+#    #+#             */
-/*   Updated: 2025/09/14 14:01:27 by moel-oua         ###   ########.fr       */
+/*   Updated: 2025/09/28 13:51:14 by yabounna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ t_txtr_cnt	*get_mur_texture(t_main *main, int i)
 {
 	if (main->rays[i]->is_vert)
 	{
-		if (main->rays[i]->is_left)
+		if (main->rays[i]->a_gauche)
 			return (main->txts_cnt[0]);
 		return (main->txts_cnt[2]);
 	}
 	else
 	{
-		if (main->rays[i]->is_up)
+		if (main->rays[i]->en_haut)
 			return (main->txts_cnt[1]);
 		return (main->txts_cnt[3]);
 	}
