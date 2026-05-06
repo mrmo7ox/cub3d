@@ -1,6 +1,6 @@
 # cub3d
 
-description: my own 3d game engine built in c using raycasting for the 1337 curriculum.
+my own 3d game engine built in c using raycasting for the 1337 curriculum.
 
 ## the story
 this project is where things got really crazy. going from printing text in a terminal to actually rendering a 3d world pixel by pixel was a huge jump. i had to dive deep into the math behind raycasting, figuring out how to shoot rays from the player's field of view and calculate distances to the walls so they look 3d. half the struggle was just parsing the `.cub` configuration files and making sure the map is fully closed with no leaks.
